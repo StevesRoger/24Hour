@@ -1,10 +1,11 @@
 import 'package:dio/dio.dart';
+import 'package:twentyfour_hour/src/model/response_entity.dart';
 import 'package:twentyfour_hour/src/util/common_function.dart';
 import 'package:twentyfour_hour/src/util/constant.dart';
 import 'package:twentyfour_hour/src/util/http_util.dart';
 
 class AuthenticationService {
-  Future<Map<String, Object>> login(String email, String pwd) async {
+  Future<ResponseEntity> login(String email, String pwd) async {
     Response response;
     try {
       response = await dio.post(
@@ -17,15 +18,15 @@ class AuthenticationService {
           },
         ),
       );
-      return response.data as Map;
+      return ResponseEntity.fromResponse(response);
     } on DioError catch (ex) {
-      logInfo(response?.statusCode?.toString());
-      logInfo(response?.statusMessage?.toString());
-      logInfo(response?.data?.toString());
-      logInfo(ex.message);
-    } on Exception catch (ex) {
-      logInfo(ex.toString());
+      logError(response?.statusCode?.toString());
+      logError(response?.statusMessage?.toString());
+      logError(response?.data?.toString());
+      logError(ex.message);
+    } catch (ex) {
+      logError(ex.toString());
     }
-    return Map();
+    return ResponseEntity.errorFromResponse(response);
   }
 }

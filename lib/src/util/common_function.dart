@@ -20,6 +20,10 @@ void logDebug(String message) {
   debugPrint(LogSymbol.DEBUG + message);
 }
 
+void logError(String message) {
+  debugPrint(LogSymbol.ERROR + message);
+}
+
 void showSnackBar(BuildContext context, String message) {
   final scaffold = Scaffold.of(context);
   scaffold.showSnackBar(

@@ -1,13 +1,11 @@
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:twentyfour_hour/src/bloc/launch_bloc.dart';
 import 'package:twentyfour_hour/src/component/widget/circle.dart';
-import 'package:twentyfour_hour/src/screen/home/home_screen.dart';
-import 'package:twentyfour_hour/src/screen/start/start_screen.dart';
 import 'package:twentyfour_hour/src/util/constant.dart';
 import 'package:twentyfour_hour/src/util/hex_color.dart';
-import 'package:twentyfour_hour/src/util/shared_pref.dart';
 
 class LaunchScreen extends StatefulWidget {
   @override
@@ -15,53 +13,52 @@ class LaunchScreen extends StatefulWidget {
 }
 
 class _LaunchScreenState extends State<LaunchScreen> {
-  bool isLogin = false;
+  LaunchBloc _bloc;
 
   @override
-  void initState() {
-    super.initState();
-    sharedPre.containKey('user').then((value) => isLogin = value);
+  void didChangeDependencies() {
+    _bloc = Provider.of<LaunchBloc>(context);
+    _bloc.isLogin();
+    super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Builder(
-          builder: (context) {
-            return CarouselSlider(
-              options: CarouselOptions(
-                height: MediaQuery.of(context).size.height,
-                viewportFraction: 1.0,
-                enlargeCenterPage: false,
-                autoPlay: true,
-                autoPlayInterval: Duration(seconds: 2),
-                pauseAutoPlayInFiniteScroll: true,
-                enableInfiniteScroll: false,
-                onPageChanged: (index, reason) {
-                  debugPrint(index.toString());
-                  debugPrint(reason.toString());
-                  if (index == 1) {
-                    Future.delayed(const Duration(milliseconds: 3000), () {
-                      Navigator.pushAndRemoveUntil(
+        child: StreamBuilder(
+          initialData: false,
+          stream: _bloc.stream,
+          builder: (_, snap) => CarouselSlider(
+            options: CarouselOptions(
+              height: MediaQuery.of(context).size.height,
+              viewportFraction: 1.0,
+              enlargeCenterPage: false,
+              autoPlay: true,
+              autoPlayInterval: Duration(seconds: 2),
+              pauseAutoPlayInFiniteScroll: true,
+              enableInfiniteScroll: false,
+              onPageChanged: (index, reason) {
+                debugPrint(index.toString());
+                debugPrint(reason.toString());
+                if (index == 1) {
+                  Future.delayed(
+                    const Duration(milliseconds: 3000),
+                    () => Navigator.pushNamedAndRemoveUntil(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                isLogin ? HomeScreen() : StartScreen()),
-                        (Route<dynamic> route) => false,
-                      );
-                    });
-                  }
-                },
-                pauseAutoPlayOnManualNavigate: true,
-                pauseAutoPlayOnTouch: true,
-              ),
-              items: <Widget>[
-                _purplePanel(),
-                _whitePanel(),
-              ],
-            );
-          },
+                        snap.data ? Routes.HOME : Routes.START,
+                        (route) => false),
+                  );
+                }
+              },
+              pauseAutoPlayOnManualNavigate: true,
+              pauseAutoPlayOnTouch: true,
+            ),
+            items: <Widget>[
+              _purplePanel(),
+              _whitePanel(),
+            ],
+          ),
         ),
       ),
     );
@@ -69,7 +66,7 @@ class _LaunchScreenState extends State<LaunchScreen> {
 
   Widget _purplePanel() {
     return Container(
-      color: HexColor("#20144e"),
+      color: Themes.purpleDark,
       child: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -121,7 +118,7 @@ class _LaunchScreenState extends State<LaunchScreen> {
                   child: Column(
                     children: <Widget>[
                       Text(
-                        "Best Place For\n Invest Your Money",
+                        Strings.BEST_PLACE,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,

@@ -6,18 +6,36 @@ import 'hex_color.dart';
 
 class Strings {
   static const APP_NAME = 'TwentyFour';
-  static const BUTTON_LOGIN = 'Login';
-  static const INPUT_DONE = 'Done';
+  static const MEMBER_LOGIN = 'MEMBER LOGIN';
+  static const LOGIN = 'Login';
+  static const SIGN_UP = 'Sign up';
+  static const DONE = 'Done';
   static const CANCEL = 'Cancel';
+  static const EMAIL = 'ID or E-mail';
+  static const PASSWORD = 'Password';
+  static const CREATE_ACCOUNT = 'Create an Account!';
+  static const FORGOT_PASSWORD = 'Forgot Your Password?';
+  static const SOMETHING_WRONG = 'Something went wrong!';
+  static const MISSING_ACCESS_TOKEN = 'Missing access token!';
+  static const BEST_PLACE = 'Best Place For\n Invest Your Money';
   static const SMALL_WORDS =
       'Put your investing ideas into action with\n a full range of investments. Enjoy real\n benefits and rewards on Online Trade';
 }
 
+class Routes {
+  static const LAUNCH = '/';
+  static const HOME = '/home';
+  static const START = '/start';
+  static const LOGIN = '/login';
+  static const SIGN_UP = '/signUp';
+}
+
 class Themes {
-  static final purpleDark = HexColor("#20144e");
-  static final purple = HexColor("#802779");
-  static final blueColor = HexColor("#1bacd7");
-  static final pinkColor = HexColor("#802779");
+  static final purpleDark = HexColor('#20144e');
+  static final purple = HexColor('#802779');
+  static final blueColor = HexColor('#1bacd7');
+  static final pinkColor = HexColor('#802779');
+  static final gray = HexColor('#f1f1f6');
   static final primarySwatchColor = MaterialColor(0xFF802779, color);
 }
 
@@ -36,8 +54,9 @@ class API {
 }
 
 class LogSymbol {
-  static const INFO = "===> ";
-  static const DEBUG = "---> ";
+  static const INFO = 'INFO ===> ';
+  static const DEBUG = 'DEBUG ---> ';
+  static const ERROR = 'ERROR ~~~> ';
 }
 
 Map<int, Color> color = {

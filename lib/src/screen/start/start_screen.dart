@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:twentyfour_hour/src/screen/login/login_screen.dart';
+import 'package:twentyfour_hour/src/component/widget/round_button.dart';
 import 'package:twentyfour_hour/src/util/constant.dart';
 
 class StartScreen extends StatefulWidget {
@@ -8,7 +8,6 @@ class StartScreen extends StatefulWidget {
 }
 
 class _StartScreenState extends State<StartScreen> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,55 +29,34 @@ class _StartScreenState extends State<StartScreen> {
                 SizedBox(
                   height: 50.0,
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 45.0, right: 45.0),
-                  child: SizedBox(
-                    height: 45.0,
-                    child: RaisedButton(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(22.0),
-                      ),
-                      onPressed: () {},
-                      color: Themes.purpleDark,
-                      textColor: Colors.white,
-                      child: Text(
-                        "Sign up",
-                        style: TextStyle(fontSize: 18.0),
-                      ),
-                    ),
-                  ),
+                _buildButton(
+                  Themes.purpleDark,
+                  Strings.SIGN_UP,
+                  () => Navigator.pushNamed(context, Routes.SIGN_UP),
                 ),
                 SizedBox(
                   height: 25.0,
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 45.0, right: 45.0),
-                  child: SizedBox(
-                    height: 45.0,
-                    child: RaisedButton(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(22.0),
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => LoginScreen()),
-                        );
-                      },
-                      color: Themes.pinkColor,
-                      textColor: Colors.white,
-                      child: Text(
-                        "Login",
-                        style: TextStyle(fontSize: 18.0),
-                      ),
-                    ),
-                  ),
+                _buildButton(
+                  Themes.pinkColor,
+                  Strings.LOGIN,
+                  () => Navigator.pushNamed(context, Routes.LOGIN),
                 ),
               ],
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildButton(Color color, String label, Function onPressed) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 45.0, right: 45.0),
+      child: RoundButton(
+        color: color,
+        label: label,
+        onPressed: onPressed,
       ),
     );
   }
