@@ -10,7 +10,7 @@ class SharedPref {
 
   SharedPref._init();
 
-  Future<Map<String, Object>> read(String key) async {
+  Future<dynamic> read(String key) async {
     return json.decode(await getString(key));
   }
 
@@ -20,7 +20,6 @@ class SharedPref {
 
   Future<bool> remove(String key) async {
     final prefs = await SharedPreferences.getInstance();
-
     return prefs.remove(key);
   }
 

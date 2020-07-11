@@ -5,8 +5,9 @@ import 'package:twentyfour_hour/src/bloc/login_bloc.dart';
 import 'package:twentyfour_hour/src/component/widget/clickable_text.dart';
 import 'package:twentyfour_hour/src/component/widget/round_button.dart';
 import 'package:twentyfour_hour/src/component/widget/round_text_field.dart';
-import 'package:twentyfour_hour/src/util/common_function.dart';
+import 'package:twentyfour_hour/src/model/response_entity.dart';
 import 'package:twentyfour_hour/src/util/constant.dart';
+import 'package:twentyfour_hour/src/util/tools.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -16,13 +17,13 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _passwordCtrl = TextEditingController();
   final _emailCtrl = TextEditingController();
-  ProgressDialog _pr;
+  ProgressDialog _progress;
   LoginBloc _bloc;
 
   @override
   void didChangeDependencies() {
     _bloc = Provider.of<LoginBloc>(context);
-    _pr = ProgressDialog(context, isDismissible: false);
+    _progress = ProgressDialog(context, isDismissible: false);
     super.didChangeDependencies();
   }
 
@@ -126,28 +127,31 @@ class _LoginScreenState extends State<LoginScreen> {
     var pwd = 'user01236';
     //var email = _emailCtrl.text.trim().toString();
     //var pwd = _passwordCtrl.text.trim().toString();
-    if (email == null || email.length < 1) {
-      showSnackBar(context, 'ID or Email can not be empty');
+    if (email == null || email.isEmpty) {
+      showSnackBar(context, Strings.EMPTY_EMAIL);
       return;
     }
-    if (pwd == null || pwd.length < 1) {
-      showSnackBar(context, 'Password can not be empty');
+    if (pwd == null || pwd.isEmpty) {
+      showSnackBar(context, Strings.EMPTY_PASSWORD);
       return;
     }
-    await _pr.show();
-    var response = await _bloc.login(email, pwd);
-    await _pr.hide().then((value) {
-      if (response.isSucceed()) {
-        Navigator.pushNamedAndRemoveUntil(
-            context, Routes.HOME, (route) => false);
-      } else {
-        showMessageDialog(
-          context: context,
-          title: 'Login failed',
-          message: 'Incorrect username or password',
-        );
-        _passwordCtrl.clear();
-      }
-    });
+    await _progress.show();
+    var response = await _bloc?.login(email, pwd) ?? ResponseEntity.error();
+    await _progress.hide().then(
+      (value) {
+        if (response.isSucceed()) {
+          Navigator.pushNamedAndRemoveUntil(
+              context, Routes.HOME, (route) => false);
+        } else {
+          showMessageDialog(
+            context: context,
+            title: Strings.LOGIN_FAILED,
+            message: response.message ?? Strings.INCORRECT_USR_PWD,
+          );
+          _passwordCtrl.clear();
+          logDebug(response.message);
+        }
+      },
+    );
   }
 }

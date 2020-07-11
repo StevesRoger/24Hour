@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import 'package:twentyfour_hour/src/bloc/launch_bloc.dart';
 import 'package:twentyfour_hour/src/component/widget/circle.dart';
 import 'package:twentyfour_hour/src/util/constant.dart';
-import 'package:twentyfour_hour/src/util/hex_color.dart';
 
 class LaunchScreen extends StatefulWidget {
   @override
@@ -18,8 +17,15 @@ class _LaunchScreenState extends State<LaunchScreen> {
   @override
   void didChangeDependencies() {
     _bloc = Provider.of<LaunchBloc>(context);
-    _bloc.isLogin();
+    _bloc?.init();
+    _bloc?.isLogin();
     super.didChangeDependencies();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _bloc?.dispose();
   }
 
   @override
@@ -28,7 +34,7 @@ class _LaunchScreenState extends State<LaunchScreen> {
       body: SafeArea(
         child: StreamBuilder(
           initialData: false,
-          stream: _bloc.stream,
+          stream: _bloc?.stream,
           builder: (_, snap) => CarouselSlider(
             options: CarouselOptions(
               height: MediaQuery.of(context).size.height,

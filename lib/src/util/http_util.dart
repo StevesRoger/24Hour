@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 
-import 'common_function.dart';
 import 'constant.dart';
+import 'tools.dart';
 
 class HttpUtil {
   // Singleton factory
@@ -18,7 +18,12 @@ class HttpUtil {
     dio.options.connectTimeout = API.TIMEOUT;
     dio.options.receiveTimeout = API.TIMEOUT;
     dio.options.sendTimeout = API.TIMEOUT;
-    dio.interceptors.add(LogInterceptor(responseBody: true));
+    dio.interceptors.add(
+      LogInterceptor(
+          requestBody: true,
+          responseBody: true,
+          logPrint: (message) => log('DIO ---> ', message)),
+    );
   }
 
   Future<bool> checkInternetConnection() async {

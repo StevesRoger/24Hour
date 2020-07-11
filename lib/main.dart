@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
-import 'package:twentyfour_hour/src/util/hex_color.dart';
 
+import 'src/bloc/home_bloc.dart';
 import 'src/bloc/launch_bloc.dart';
 import 'src/bloc/login_bloc.dart';
 import 'src/screen/home/home_screen.dart';
@@ -24,8 +24,11 @@ class TwentyFourApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(
-        statusBarColor: HexColor("#1b1045"),
+      SystemUiOverlayStyle.dark.copyWith(
+          statusBarColor: Themes.statusBarColor, // Color for Android
+          statusBarIconBrightness: Brightness.light,
+          statusBarBrightness:
+          Brightness.light // Dark == white status bar -- for IOS.
       ),
     );
     return MultiProvider(
@@ -51,12 +54,16 @@ class TwentyFourApp extends StatelessWidget {
 
   List<SingleChildWidget> _createProvider() {
     return [
-      Provider<LoginBloc>(
-        create: (context) => LoginBloc(context),
+      Provider<LaunchBloc>(
+        create: (context) => LaunchBloc(),
         dispose: (_, bloc) => bloc?.dispose(),
       ),
-      Provider<LaunchBloc>(
-        create: (context) => LaunchBloc(context),
+      Provider<LoginBloc>(
+        create: (context) => LoginBloc(),
+        dispose: (_, bloc) => bloc?.dispose(),
+      ),
+      Provider<HomeBloc>(
+        create: (context) => HomeBloc(),
         dispose: (_, bloc) => bloc?.dispose(),
       ),
     ];
