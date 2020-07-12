@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'hex_color.dart';
 
 class Strings {
-  static const APP_NAME = 'TwentyFour';
+  static const APP_NAME = 'AS24Hour';
   static const MEMBER_LOGIN = 'MEMBER LOGIN';
   static const LOGIN = 'Login';
   static const SIGN_UP = 'Sign up';
@@ -55,7 +55,7 @@ class Themes {
   static final blueColor = HexColor('#1bacd7');
   static final pinkColor = HexColor('#802779');
   static final gray = HexColor('#f1f1f6');
-  static final statusBarColor = HexColor('#1b1045');
+  //static final statusBarColor = HexColor('#1b1045');
   static final primarySwatchColor = MaterialColor(0xFF802779, _color);
   static final Map<int, Color> _color = {
     50: Color.fromRGBO(4, 131, 184, .1),

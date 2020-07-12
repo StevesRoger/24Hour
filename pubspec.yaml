@@ -36,6 +36,7 @@ dependencies:
   progress_dialog: ^1.2.4
   progress_indicators: ^0.1.5
   loading_overlay: ^0.2.1
+  flutter_statusbarcolor: ^0.2.3
 
 dev_dependencies:
   flutter_test:

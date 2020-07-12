@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
@@ -23,14 +24,16 @@ void main() {
 class TwentyFourApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(
+    /*SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle.dark.copyWith(
           statusBarColor: Themes.statusBarColor, // Color for Android
           statusBarIconBrightness: Brightness.light,
           statusBarBrightness:
           Brightness.light // Dark == white status bar -- for IOS.
       ),
-    );
+    );*/
+    FlutterStatusbarcolor.setStatusBarColor(Themes.purpleDark);
+    FlutterStatusbarcolor.setStatusBarWhiteForeground(true);
     return MultiProvider(
       providers: _createProvider(),
       child: MaterialApp(
