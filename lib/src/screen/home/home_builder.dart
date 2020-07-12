@@ -18,7 +18,7 @@ class HomeBuilder {
             icon: Icon(
               Icons.menu,
               color: Colors.white,
-              size: 40.0,
+              size: 30.0,
             ),
             onPressed: onPressedMenu ?? () {},
           ),
@@ -35,7 +35,6 @@ class HomeBuilder {
                 icon: Icon(
                   Icons.notifications_active,
                   color: Colors.white,
-                  size: 30.0,
                 ),
                 onPressed: onPressedNotification ?? () {},
               ),

@@ -35,12 +35,21 @@ class _HomeScreenState extends State<HomeScreen> {
         initialData: _user,
         builder: (_, snap) {
           _user = getDataFromAsyncSnapshot(snap);
-          return SingleChildScrollView(
-            physics: const NeverScrollableScrollPhysics(),
-            child: SafeArea(
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                child: _user != null ? _buildHome() : _buildLoading(),
+          return SafeArea(
+            child: LoadingOverlay(
+              isLoading: _user == null,
+              progressIndicator: CircularProgressIndicator(
+                backgroundColor: Themes.purple,
+                valueColor: AlwaysStoppedAnimation<Color>(
+                  Colors.white,
+                ),
+              ),
+              color: Colors.black12,
+              child: SingleChildScrollView(
+                physics: const NeverScrollableScrollPhysics(),
+                child: Container(
+                  child: _buildHome(),
+                ),
               ),
             ),
           );
@@ -49,20 +58,8 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildLoading() {
-    return Container(
-      color: Themes.purpleDark,
-      alignment: Alignment.center,
-      child: Column(
-        children: <Widget>[
-          HomeBuilder.buildActionBar(),
-        ],
-      ),
-    );
-  }
-
   Widget _buildHome() {
-    return _user.isValid()
+    return _user != null
         ? Container(
             color: Themes.purpleDark,
             alignment: Alignment.center,
@@ -80,6 +77,14 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
           )
-        : Container();
+        : Container(
+            color: Themes.purpleDark,
+            alignment: Alignment.center,
+            child: Column(
+              children: <Widget>[
+                HomeBuilder.buildActionBar(),
+              ],
+            ),
+          );
   }
 }

@@ -4,7 +4,7 @@ import 'package:twentyfour_hour/src/util/constant.dart';
 import 'base_entity.dart';
 
 class ResponseEntity extends BaseEntity {
-  String _message = '';
+  dynamic _message = '';
   String _statusMessage = '';
   Map<String, Object> _data = Map();
   int _statusCode = 999;

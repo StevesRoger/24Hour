@@ -45,8 +45,6 @@ class _LaunchScreenState extends State<LaunchScreen> {
               pauseAutoPlayInFiniteScroll: true,
               enableInfiniteScroll: false,
               onPageChanged: (index, reason) {
-                debugPrint(index.toString());
-                debugPrint(reason.toString());
                 if (index == 1) {
                   Future.delayed(
                     const Duration(milliseconds: 3000),

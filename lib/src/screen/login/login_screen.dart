@@ -140,13 +140,14 @@ class _LoginScreenState extends State<LoginScreen> {
     await _progress.hide().then(
       (value) {
         if (response.isSucceed()) {
-          Navigator.pushNamedAndRemoveUntil(
-              context, Routes.HOME, (route) => false);
+          /*Navigator.pushNamedAndRemoveUntil(
+              context, Routes.HOME, (route) => false);*/
+          Navigator.pushNamed(context, Routes.HOME);
         } else {
           showMessageDialog(
             context: context,
             title: Strings.LOGIN_FAILED,
-            message: response.message ?? Strings.INCORRECT_USR_PWD,
+            message: Strings.INCORRECT_USR_PWD,
           );
           _passwordCtrl.clear();
           logDebug(response.message);
