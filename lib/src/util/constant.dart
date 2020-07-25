@@ -35,6 +35,7 @@ class Strings {
   static const PHONE = 'Mobile Phone';
   static const PASSWORD = 'Password';
   static const CONFIRM_PASSWORD = 'Confirm Password';
+  static const CONFIRM_MISMATCH_PASSWORD = 'Confirm password mismatch';
   static const REFFERAL_ID = 'Refferal ID User';
   static const CREATE_ACCOUNT = 'Create an Account!';
   static const BACK_TO_LOGIN = 'Back to login';
@@ -55,6 +56,7 @@ class Strings {
   static const EMPTY_REFFERAL_ID = 'Refferal id can not be empty';
   static const EMPTY_CONFIRM_PASSWORD = 'Confirm password can not be empty';
   static const LOGIN_FAILED = 'Login failed';
+  static const REGISTER_FAILED = 'Register failed';
   static const INCORRECT_USR_PWD = 'Incorrect username or password';
   static const ACTIVATE_PACKAGE = 'Activated Packages: ';
   static const AVAILABLE_EARNING = 'Available Earning: ';
@@ -84,6 +86,7 @@ class Routes {
   static const START = '/start';
   static const LOGIN = '/login';
   static const SIGN_UP = '/signUp';
+  static const KYC = '/kyc';
 }
 
 class Themes {

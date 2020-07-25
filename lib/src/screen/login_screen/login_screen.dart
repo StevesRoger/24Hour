@@ -34,7 +34,6 @@ class _LoginScreenState extends State<LoginScreen> {
     return ScaffoldSafeArea(
       body: ListView(
         shrinkWrap: true,
-        padding: EdgeInsets.all(10.0),
         physics: const NeverScrollableScrollPhysics(),
         children: <Widget>[
           LogoImage(),
@@ -77,7 +76,9 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           ClickableTextUnderline(
             data: Strings.FORGOT_PASSWORD,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pop(context);
+            },
           )
         ],
       ),

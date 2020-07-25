@@ -13,6 +13,7 @@ class RoundSelectFormField extends StatelessWidget {
   final FormFieldValidator<ItemSelect> validator;
   final ItemSelect value;
   final EdgeInsetsGeometry hintPadding;
+  final double percentPadding;
   final Widget prefixIcon;
   final Widget suffixIcon;
 
@@ -29,6 +30,7 @@ class RoundSelectFormField extends StatelessWidget {
     this.prefixIcon,
     this.suffixIcon,
     this.onSaved,
+    this.percentPadding = 15.0,
     this.margin = const EdgeInsets.only(
       top: 10.0,
       left: 40.0,
@@ -59,8 +61,9 @@ class RoundSelectFormField extends StatelessWidget {
         hint: Padding(
           padding: hintPadding != null
               ? hintPadding
-              : const EdgeInsets.only(
-                  left: 85.0,
+              : EdgeInsets.only(
+                  left: (MediaQuery.of(context).size.width / 100) *
+                      percentPadding,
                 ),
           child: Text(
             hint,

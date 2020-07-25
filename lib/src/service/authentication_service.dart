@@ -19,4 +19,20 @@ class AuthenticationService {
       return ResponseEntity.errorWithMessage(httpUtil.handleError(ex));
     }
   }
+
+  Future<ResponseEntity> register(Map json) async {
+    try {
+      var response = await dio.post(
+        '/register',
+        data: json,
+        options: Options(
+          headers: buildRequestHeader(),
+        ),
+      );
+      return ResponseEntity.fromResponse(response);
+    } catch (ex) {
+      logError(ex.toString());
+      return ResponseEntity.errorWithMessage(httpUtil.handleError(ex));
+    }
+  }
 }

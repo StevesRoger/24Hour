@@ -35,7 +35,7 @@ class ResponseEntity extends BaseEntity {
 
   String get message => _message;
 
-  bool isSucceed() => _statusCode == 200 && _data['data'] != null;
+  bool isSucceed() => _statusCode == 200;
 
   bool containKey(String key) => _data.containsKey(key);
 

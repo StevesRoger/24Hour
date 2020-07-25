@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:twentyfour_hour/src/component/earning_progress.dart';
+import 'package:twentyfour_hour/src/component/gradient_panel.dart';
+import 'package:twentyfour_hour/src/component/round_rectangle.dart';
 import 'package:twentyfour_hour/src/component/widget/icon_menu.dart';
 import 'package:twentyfour_hour/src/component/widget/vertical_divider.dart';
 import 'package:twentyfour_hour/src/model/user.dart';
@@ -9,139 +12,31 @@ class HomeScreenBuilder {
     Function onPressedMenu,
     Function onPressedNotification,
   }) {
-    return Container(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          IconButton(
-            icon: Icon(
-              Icons.menu,
-              color: Colors.white,
-              size: 30.0,
-            ),
-            onPressed: onPressedMenu ?? () {},
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Image.asset("assets/images/header-logo.png"),
-            ),
-          ),
-          Expanded(
-            child: Align(
-              alignment: Alignment.centerRight,
-              child: IconButton(
-                icon: Icon(
-                  Icons.notifications_active,
-                  color: Colors.white,
-                ),
-                onPressed: onPressedNotification ?? () {},
-              ),
-            ),
-          )
-        ],
-      ),
-    );
-  }
-
-  static Widget buildProfile(
-    BuildContext context,
-    User user,
-  ) {
-    return Stack(
+    return Row(
       children: <Widget>[
-        Container(
-          height: 350.0,
-          width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [Themes.purple, Themes.purpleDark],
-              stops: [0.0, 0.6],
-            ),
+        IconButton(
+          icon: Icon(
+            Icons.menu,
+            color: Colors.white,
+            size: 30.0,
+          ),
+          onPressed: onPressedMenu,
+        ),
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Image.asset("assets/images/header-logo.png"),
           ),
         ),
-        GestureDetector(
-          onTap: () {},
-          child: Container(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(top: 10.0),
-                  child: Image.asset(
-                    "assets/images/profile-logo.png",
-                    height: 70,
-                    fit: BoxFit.scaleDown,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 5.0),
-                  child: Text(
-                    user.username,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: RichText(
-                    text: TextSpan(
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                      children: <TextSpan>[
-                        TextSpan(
-                          text: Strings.ACTIVATE_PACKAGE,
-                        ),
-                        TextSpan(
-                          text: user.package,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                RichText(
-                  text: TextSpan(
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: Strings.AVAILABLE_EARNING,
-                      ),
-                      TextSpan(
-                        text: '\$${user.availableEarning}',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Stack(
-                    children: <Widget>[
-                      _buildRoundRectangle(250.0, Themes.purple),
-                      _buildRoundRectangle(125.0, Themes.blueColor),
-                    ],
-                  ),
-                ),
-                Stack(
-                  alignment: Alignment.topCenter,
-                  children: <Widget>[
-                    _buildMenu(context, user),
-                    _buildWalletTotal(user),
-                  ],
-                )
-              ],
+        Expanded(
+          child: Align(
+            alignment: Alignment.centerRight,
+            child: IconButton(
+              icon: Icon(
+                Icons.notifications_active,
+                color: Colors.white,
+              ),
+              onPressed: onPressedNotification,
             ),
           ),
         )
@@ -149,35 +44,98 @@ class HomeScreenBuilder {
     );
   }
 
-  static Widget _buildRoundRectangle(
-    double width,
-    Color color, {
-    double height = 10.0,
-    Widget child,
-    double radius = 10.0,
-    BoxBorder border,
+  static Widget buildProfile(
+    User user, {
+    GestureTapCallback onTap,
   }) {
-    return Container(
-      alignment: Alignment.center,
-      width: width,
-      height: height,
-      decoration: new BoxDecoration(
-        border: border,
-        color: color,
-        shape: BoxShape.rectangle,
-        borderRadius: BorderRadius.all(
-          Radius.circular(radius),
-        ),
-      ),
-      child: child,
+    return Stack(
+      children: <Widget>[
+        GradientPanel(),
+        Column(
+          children: <Widget>[
+            Material(
+              color: Colors.transparent,
+              child: InkWell(
+                splashColor: Colors.white,
+                customBorder: const CircleBorder(),
+                onTap: onTap,
+                child: Container(
+                  padding: const EdgeInsets.all(2.0),
+                  child: Image.asset(
+                    "assets/images/profile-logo.png",
+                    height: 70,
+                    fit: BoxFit.scaleDown,
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.only(top: 2.0, bottom: 2.0),
+              child: Text(
+                user.username,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ),
+            RichText(
+              text: TextSpan(
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+                children: <TextSpan>[
+                  TextSpan(
+                    text: Strings.ACTIVATE_PACKAGE,
+                  ),
+                  TextSpan(
+                    text: user.package,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.only(top: 2.0),
+              child: RichText(
+                text: TextSpan(
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: Strings.AVAILABLE_EARNING,
+                    ),
+                    TextSpan(
+                      text: '\$${user.availableEarning}',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            EarningProgress(),
+            Stack(
+              children: <Widget>[
+                _buildMenu(user),
+                _buildWalletTotal(user),
+              ],
+            )
+          ],
+        )
+      ],
     );
   }
 
   static Widget _buildWalletTotal(User user) {
     return Center(
-      child: _buildRoundRectangle(
-        300.0,
-        Colors.white,
+      child: RoundRectangle(
+        width: 300.0,
+        color: Colors.white,
         height: 40.0,
         radius: 30.0,
         child: RichText(
@@ -208,19 +166,17 @@ class HomeScreenBuilder {
     );
   }
 
-  static Widget _buildMenu(BuildContext context, User user) {
+  static Widget _buildMenu(User user) {
     return Container(
       margin: EdgeInsets.only(
         top: 22.0,
       ),
-      width: MediaQuery.of(context).size.width,
       color: Colors.white,
       child: Column(
         children: <Widget>[
           Container(
-            margin: EdgeInsets.only(top: 20.0),
+            margin: EdgeInsets.only(top: 22.0),
             child: Row(
-              mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 _buildWalletBalance(
@@ -241,17 +197,18 @@ class HomeScreenBuilder {
             ),
           ),
           Row(
-            //mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               IconMenu(
                 'assets/images/icons/investment-packages.png',
                 Strings.INVESTMENT,
-                padding: const EdgeInsets.only(right: 5.0),
+                onTap: () {
+                  print('Test');
+                },
               ),
-              IconMenu(
-                'assets/images/icons/wallet.png',
-                Strings.WALLET,
-              ),
+              IconMenu('assets/images/icons/wallet.png', Strings.WALLET,
+                  onTap: () {
+                print('Test');
+              }),
               IconMenu(
                 'assets/images/icons/referral.png',
                 Strings.REFERRAL,
@@ -361,10 +318,9 @@ class HomeScreenBuilder {
   }
 
   static Widget _buildWalletBalance(String balance, String label) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 8.0, left: 8.0, right: 8.0),
+    return Container(
+      alignment: Alignment.center,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Text(
             balance,

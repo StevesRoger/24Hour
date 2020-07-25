@@ -7,6 +7,8 @@ class ScaffoldSafeArea extends StatelessWidget {
   final EdgeInsetsGeometry padding;
   final PreferredSizeWidget appBar;
   final Color color;
+  final Color backgroundColor;
+  final bool resizeToAvoidBottomPadding;
 
   ScaffoldSafeArea({
     this.alignment = Alignment.center,
@@ -15,11 +17,15 @@ class ScaffoldSafeArea extends StatelessWidget {
     this.padding,
     this.appBar,
     this.color,
+    this.resizeToAvoidBottomPadding,
+    this.backgroundColor,
   });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: backgroundColor,
+      resizeToAvoidBottomPadding: resizeToAvoidBottomPadding,
       appBar: appBar,
       body: SafeArea(
         child: Container(

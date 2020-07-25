@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:provider/provider.dart';
@@ -34,9 +35,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return ScaffoldSafeArea(
+      padding: const EdgeInsets.only(
+        top: 10.0,
+        bottom: 10.0,
+      ),
       body: ListView(
         shrinkWrap: true,
-        padding: EdgeInsets.all(10.0),
         children: <Widget>[
           LogoImage(),
           TextTitle(Strings.REGISTER),
@@ -63,6 +67,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 RoundSelectFormField(
                   prefixIcon: Icon(Icons.people),
                   hint: Strings.SEX,
+                  percentPadding: 18.0,
                   items: K.sex,
                   validator: (val) => val == null || val.label.isEmpty
                       ? Strings.EMPTY_SEX
@@ -71,9 +76,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 RoundSelectFormField(
                   prefixIcon: Icon(FontAwesome.globe),
-                  hintPadding: const EdgeInsets.only(
-                    left: 75.0,
-                  ),
                   hint: Strings.COUNTRY,
                   items: K.countries,
                   validator: (val) => val == null || val.value.isEmpty
@@ -106,6 +108,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     Icons.lock,
                   ),
                   hint: Strings.PASSWORD,
+                  controller: prop.passwordCtrl,
                   obscureText: true,
                   validator: (val) => val == null || val.isEmpty
                       ? Strings.EMPTY_PASSWORD
@@ -118,9 +121,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                   hint: Strings.CONFIRM_PASSWORD,
                   obscureText: true,
-                  validator: (val) => val == null || val.isEmpty
-                      ? Strings.EMPTY_CONFIRM_PASSWORD
-                      : null,
+                  validator: (val) {
+                    if (val == null || val.isEmpty)
+                      return Strings.EMPTY_CONFIRM_PASSWORD;
+                    if (val != prop.passwordCtrl.text)
+                      return Strings.CONFIRM_MISMATCH_PASSWORD;
+                    return null;
+                  },
                   onSaved: (val) => prop.userRegister.confirmPassword = val,
                 ),
                 RoundTextFormField(
@@ -146,7 +153,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
             marginTop: 10.0,
             marginBottom: 5.0,
             data: Strings.BACK_TO_LOGIN,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pop(context);
+            },
           ),
           Text(
             Strings.COPY_RIGHT,

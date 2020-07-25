@@ -11,9 +11,11 @@ class UserRegister {
 
   UserRegister();
 
-  bool isMatchConfirmPassword(String confirmPassword) {
+  bool isMatchConfirmPassword() {
     return password == confirmPassword;
   }
+
+  String userName() => firstName + lastName;
 
   Map toMap() {
     return {

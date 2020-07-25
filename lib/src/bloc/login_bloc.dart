@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:twentyfour_hour/src/model/response_entity.dart';
-import 'package:twentyfour_hour/src/model/user.dart';
 import 'package:twentyfour_hour/src/screen/login_screen/login_screen_prop.dart';
 import 'package:twentyfour_hour/src/service/authentication_service.dart';
 import 'package:twentyfour_hour/src/util/constant.dart';
@@ -15,18 +13,25 @@ class LoginBloc extends BaseBloc<LoginScreenProp> {
   LoginBloc(BuildContext context) : super(context);
 
   void onPressedLogin() async {
-    FocusScope.of(context).requestFocus(FocusNode());
-    if (prop.formKey.currentState.validate()) {
-      prop.formKey.currentState.save();
-      await prop.progress.show();
-      //var response = await _login(prop.user.username, prop.user.password);
-      var response = await _login('AS000002', 'user01236');
-      await prop.progress.hide().then(
-        (value) {
+    try {
+      FocusScope.of(context).requestFocus(FocusNode());
+      if (prop.formKey.currentState.validate()) {
+        prop.formKey.currentState.save();
+        prop.user.username = 'AS000002';
+        prop.user.password = 'user01236';
+        await prop.progress.show();
+        var response =
+            await authService.login(prop.user.username, prop.user.password);
+        var data = response.getData();
+        var token = data['access_token'];
+        if (token == null) throw Exception(Strings.GET_ACCESS_TOKEN_FAIL);
+        await sharedPre
+            .save('user', {'username': prop.user.username, 'token': token});
+        await prop.progress.hide().then((value) {
           if (response.isSucceed()) {
+            logInfo('login success');
             Navigator.pushNamedAndRemoveUntil(
                 context, Routes.HOME, (route) => false);
-            //Navigator.pushNamed(context, Routes.HOME);
           } else {
             showMessageDialog(
               context: context,
@@ -35,29 +40,19 @@ class LoginBloc extends BaseBloc<LoginScreenProp> {
             );
             logInfo(response.message);
           }
-        },
-      );
-    }
-  }
-
-  Future<ResponseEntity> _login(String username, String password) async {
-    try {
-      var response = await authService.login(username, password);
-      if (response.isSucceed()) {
-        logInfo('login success');
-        var data = response.getData();
-        var token = data['access_token'];
-        if (token == null)
-          return ResponseEntity.errorWithMessage(Strings.MISSING_ACCESS_TOKEN);
-        var user = User.fromUsernameToken(username, token);
-        logInfo('save user login');
-        logInfo(user.toString());
-        await sharedPre.save('user', {'username': username, 'token': token});
+        });
       }
-      return response;
     } catch (ex) {
       logError(ex.toString());
-      return ResponseEntity.error();
+      await prop.progress.hide().then(
+            (value) => {
+              showMessageDialog(
+                context: context,
+                title: Strings.LOGIN_FAILED,
+                message: ex.toString(),
+              )
+            },
+          );
     }
   }
 

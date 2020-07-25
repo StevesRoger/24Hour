@@ -12,6 +12,7 @@ import 'src/bloc/home_bloc.dart';
 import 'src/bloc/launch_bloc.dart';
 import 'src/bloc/login_bloc.dart';
 import 'src/bloc/signup_bloc.dart';
+import 'src/screen/kyc/kyc_screen.dart';
 import 'src/util/constant.dart';
 
 void main() {
@@ -58,6 +59,10 @@ class TwentyFourApp extends StatelessWidget {
             ),
         Routes.HOME: (context) => _buildScreen(
               HomeScreen(),
+              HomeBloc(context),
+            ),
+        Routes.KYC: (context) => _buildScreen(
+              KycScreen(),
               HomeBloc(context),
             ),
       },
