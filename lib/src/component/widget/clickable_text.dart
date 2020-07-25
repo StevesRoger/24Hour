@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:twentyfour_hour/src/util/constant.dart';
 
 class ClickableTextUnderline extends StatelessWidget {
   final String data;
@@ -9,6 +10,10 @@ class ClickableTextUnderline extends StatelessWidget {
   final double paddingLeft;
   final double paddingRight;
   final double paddingBottom;
+  final double marginTop;
+  final double marginLeft;
+  final double marginRight;
+  final double marginBottom;
   final Color color;
 
   ClickableTextUnderline({
@@ -16,38 +21,37 @@ class ClickableTextUnderline extends StatelessWidget {
     @required this.data,
     @required this.onPressed,
     this.fontSize = 14.0,
-    this.textAlign,
+    this.textAlign = TextAlign.center,
     this.paddingRight = 0.0,
     this.paddingLeft = 0.0,
     this.paddingBottom = 0.0,
     this.paddingTop = 0.0,
-    this.color,
-  }) : super(key: key);
-
-  ClickableTextUnderline.tablet({
-    Key key,
-    @required this.data,
-    @required this.onPressed,
-    this.fontSize = 18.0,
-    this.textAlign,
-    this.paddingRight = 0.0,
-    this.paddingLeft = 0.0,
-    this.paddingBottom = 0.0,
-    this.paddingTop = 0.0,
+    this.marginBottom = 0.0,
+    this.marginLeft = 0.0,
+    this.marginRight = 0.0,
+    this.marginTop = 0.0,
     this.color,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      splashColor: Colors.red,
+      splashColor: Themes.purple,
       onTap: onPressed,
       child: Container(
+        alignment: Alignment.center,
+        margin: EdgeInsets.only(
+          top: marginTop,
+          bottom: marginBottom,
+          left: marginLeft,
+          right: marginRight,
+        ),
         padding: EdgeInsets.only(
-            top: paddingTop,
-            left: paddingLeft,
-            right: paddingRight,
-            bottom: paddingBottom),
+          top: paddingTop,
+          left: paddingLeft,
+          right: paddingRight,
+          bottom: paddingBottom,
+        ),
         height: 30.0,
         child: Text(
           data,
@@ -55,7 +59,7 @@ class ClickableTextUnderline extends StatelessWidget {
           style: TextStyle(
             fontWeight: FontWeight.w500,
             fontSize: fontSize,
-            color: color,
+            color: color ?? Themes.purpleDark,
           ),
         ),
       ),

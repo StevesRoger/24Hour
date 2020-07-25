@@ -1,26 +1,59 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:twentyfour_hour/src/model/item_select.dart';
 
 import 'hex_color.dart';
 
+class K {
+  static final sex = [ItemSelect('Male'), ItemSelect('Female')];
+  static final countries = [
+    ItemSelect('Cambodia'),
+    ItemSelect('Thailand'),
+    ItemSelect('Vietnam'),
+    ItemSelect('Lao'),
+  ];
+}
+
 class Strings {
   static const APP_NAME = 'AS24Hour';
+  static const SEX = 'Sex';
+  static const WAITING = 'Waiting...';
+  static const PROCESSING = 'Processing...';
+  static const COUNTRY = 'Country';
   static const MEMBER_LOGIN = 'MEMBER LOGIN';
+  static const REGISTER = 'Register';
+  static const OK = 'OK';
+  static const CLOSE = 'Close';
   static const LOGIN = 'Login';
+  static const SUBMIT = 'Submit';
   static const SIGN_UP = 'Sign up';
   static const DONE = 'Done';
   static const CANCEL = 'Cancel';
-  static const EMAIL = 'ID or E-mail';
+  static const ID_OR_EMAIL = 'ID or E-mail';
+  static const EMAIL = 'E-mail';
+  static const PHONE = 'Mobile Phone';
   static const PASSWORD = 'Password';
+  static const CONFIRM_PASSWORD = 'Confirm Password';
+  static const REFFERAL_ID = 'Refferal ID User';
   static const CREATE_ACCOUNT = 'Create an Account!';
+  static const BACK_TO_LOGIN = 'Back to login';
   static const FORGOT_PASSWORD = 'Forgot Your Password?';
   static const SOMETHING_WRONG = 'Something went wrong!';
   static const UNEXPECTED_ERROR = 'Unexpected error!';
-  static const MISSING_ACCESS_TOKEN = 'Missing access token!';
+  static const MISSING_ACCESS_TOKEN = 'Missing access token';
+  static const GET_ACCESS_TOKEN_FAIL = 'Failed to get access token';
   static const BEST_PLACE = 'Best Place For\n Invest Your Money';
-  static const EMPTY_EMAIL = 'ID or Email can not be empty';
+  static const EMPTY_ID_EMAIL = 'ID or Email can not be empty';
+  static const EMPTY_EMAIL = 'Email can not be empty';
+  static const EMPTY_PHONE = 'Phone number can not be empty';
+  static const EMPTY_LAST_NAME = 'Last name can not be empty';
+  static const EMPTY_FIRST_NAME = 'First name can not be empty';
+  static const EMPTY_SEX = 'Sex can not be empty';
+  static const EMPTY_Country = 'Country can not be empty';
   static const EMPTY_PASSWORD = 'Password can not be empty';
+  static const EMPTY_REFFERAL_ID = 'Refferal id can not be empty';
+  static const EMPTY_CONFIRM_PASSWORD = 'Confirm password can not be empty';
   static const LOGIN_FAILED = 'Login failed';
   static const INCORRECT_USR_PWD = 'Incorrect username or password';
   static const ACTIVATE_PACKAGE = 'Activated Packages: ';
@@ -39,6 +72,10 @@ class Strings {
   static const REWARD = 'Reward\n Bouns';
   static const SMALL_WORDS =
       'Put your investing ideas into action with\n a full range of investments. Enjoy real\n benefits and rewards on Online Trade';
+
+  static const LAST_NAME = 'Last Name';
+  static const FIRST_NAME = 'First Name';
+  static const COPY_RIGHT = 'Copyright © 2020 As24Hour All Rights Reserved';
 }
 
 class Routes {
@@ -55,6 +92,7 @@ class Themes {
   static final blueColor = HexColor('#1bacd7');
   static final pinkColor = HexColor('#802779');
   static final gray = HexColor('#f1f1f6');
+
   //static final statusBarColor = HexColor('#1b1045');
   static final primarySwatchColor = MaterialColor(0xFF802779, _color);
   static final Map<int, Color> _color = {

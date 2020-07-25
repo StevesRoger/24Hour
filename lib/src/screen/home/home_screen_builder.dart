@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:twentyfour_hour/src/component/widget/icon_menu.dart';
 import 'package:twentyfour_hour/src/component/widget/vertical_divider.dart';
 import 'package:twentyfour_hour/src/model/user.dart';
+import 'package:twentyfour_hour/src/util/constant.dart';
 
-import '../../util/constant.dart';
-
-class HomeBuilder {
+class HomeScreenBuilder {
   static Widget buildActionBar({
     Function onPressedMenu,
     Function onPressedNotification,

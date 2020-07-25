@@ -1,20 +1,13 @@
-import 'package:rxdart/rxdart.dart';
+import 'package:flutter/material.dart';
 
-abstract class BaseBloc {
-  BehaviorSubject _streamController = BehaviorSubject();
+abstract class BaseBloc<T> {
+  final BuildContext context;
+  
+  T prop;
 
-  void add(dynamic event) {
-    _streamController?.add(event);
-  }
+  BaseBloc(this.context);
 
-  Stream<dynamic> get stream => _streamController?.stream;
+  void init() {}
 
-  void init() {
-    if (_streamController == null || _streamController.isClosed)
-      _streamController = BehaviorSubject();
-  }
-
-  void dispose() {
-    _streamController?.close();
-  }
+  void dispose();
 }

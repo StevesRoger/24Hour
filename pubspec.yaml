@@ -37,6 +37,7 @@ dependencies:
   progress_indicators: ^0.1.5
   loading_overlay: ^0.2.1
   flutter_statusbarcolor: ^0.2.3
+  fluttericon: ^1.0.7
 
 dev_dependencies:
   flutter_test:
@@ -70,10 +71,10 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  fonts:
-    - family: TwentyFourHour
-      fonts:
-         - asset: assets/fonts/TwentyFourHour.ttf
+  #fonts:
+  #  - family: TwentyFourHour
+  #    fonts:
+  #       - asset: assets/fonts/TwentyFourHour.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

@@ -6,26 +6,24 @@ import 'package:twentyfour_hour/src/bloc/launch_bloc.dart';
 import 'package:twentyfour_hour/src/component/widget/circle.dart';
 import 'package:twentyfour_hour/src/util/constant.dart';
 
+import 'launch_screen_prop.dart';
+
 class LaunchScreen extends StatefulWidget {
   @override
   _LaunchScreenState createState() => _LaunchScreenState();
 }
 
 class _LaunchScreenState extends State<LaunchScreen> {
-  LaunchBloc _bloc;
+  final prop = LaunchScreenProp();
 
   @override
   void didChangeDependencies() {
-    _bloc = Provider.of<LaunchBloc>(context);
-    _bloc?.init();
-    _bloc?.isLogin();
+    prop.init(
+      Provider.of<LaunchBloc>(context),
+      context,
+    );
+    prop.bloc.isLogin();
     super.didChangeDependencies();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _bloc?.dispose();
   }
 
   @override
@@ -34,7 +32,7 @@ class _LaunchScreenState extends State<LaunchScreen> {
       body: SafeArea(
         child: StreamBuilder(
           initialData: false,
-          stream: _bloc?.stream,
+          stream: prop.bloc?.userStream,
           builder: (_, snap) => CarouselSlider(
             options: CarouselOptions(
               height: MediaQuery.of(context).size.height,
@@ -59,8 +57,8 @@ class _LaunchScreenState extends State<LaunchScreen> {
               pauseAutoPlayOnTouch: true,
             ),
             items: <Widget>[
-              _purplePanel(),
-              _whitePanel(),
+              _buildPurplePanel(),
+              _buildWhitePanel(),
             ],
           ),
         ),
@@ -68,7 +66,7 @@ class _LaunchScreenState extends State<LaunchScreen> {
     );
   }
 
-  Widget _purplePanel() {
+  Widget _buildPurplePanel() {
     return Container(
       color: Themes.purpleDark,
       child: Center(
@@ -102,7 +100,7 @@ class _LaunchScreenState extends State<LaunchScreen> {
     );
   }
 
-  Widget _whitePanel() {
+  Widget _buildWhitePanel() {
     return Stack(
       children: <Widget>[
         Container(

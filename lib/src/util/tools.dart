@@ -1,8 +1,11 @@
 import 'dart:io' show Platform, exit;
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'constant.dart';
+
+enum DeviceScreenType { Mobile, Tablet, Desktop }
 
 bool isAndroid() {
   return Platform.isAndroid;
@@ -28,12 +31,15 @@ void logError(Object message) {
   debugPrint('${LogSymbol.ERROR}$message');
 }
 
-getDataFromAsyncSnapshot(AsyncSnapshot snapshot) {
-  if (snapshot.hasData) return snapshot.data;
-  return null;
+DeviceScreenType getDeviceType(MediaQueryData mediaQuery) {
+  var deviceWidth = mediaQuery.size.shortestSide;
+  if (deviceWidth > 600)
+    return DeviceScreenType.Tablet;
+  else if (deviceWidth > 1024) return DeviceScreenType.Desktop;
+  return DeviceScreenType.Mobile;
 }
 
-Map<String, String> buildHttpHeader({
+Map<String, String> buildRequestHeader({
   String contentType = HttpHeader.CONTENT_TYPE_JSON,
   String accept = HttpHeader.ACCEPT_JSON,
 }) {
@@ -59,29 +65,45 @@ Future<void> showMessageDialog({
   String message,
   Function onPressed,
 }) async {
-  return showDialog<void>(
+  return showDialog(
+    barrierDismissible: false,
     context: context,
-    barrierDismissible: false, // user must tap button!
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: Text(title),
-        content: SingleChildScrollView(
-          child: ListBody(
-            children: <Widget>[
-              Text(message),
+    builder: (BuildContext context) => isAndroid()
+        ? AlertDialog(
+            title: Text(title),
+            content: Text(message),
+            actions: <Widget>[
+              FlatButton(
+                child: Text(
+                  Strings.CLOSE,
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  onPressed?.call();
+                },
+              ),
             ],
+          )
+        : Theme(
+            data: ThemeData.dark(),
+            child: CupertinoAlertDialog(
+              title: Text(title),
+              content: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(message),
+              ),
+              actions: <Widget>[
+                CupertinoDialogAction(
+                  child: Text(
+                    Strings.CLOSE,
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    if (onPressed != null) onPressed.call();
+                  },
+                ),
+              ],
+            ),
           ),
-        ),
-        actions: <Widget>[
-          FlatButton(
-            child: Text('OK'),
-            onPressed: () {
-              Navigator.of(context).pop();
-              if (onPressed != null) onPressed.call();
-            },
-          ),
-        ],
-      );
-    },
   );
 }

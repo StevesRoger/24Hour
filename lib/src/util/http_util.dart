@@ -28,7 +28,8 @@ class HttpUtil {
 
   Future<bool> checkInternetConnection() async {
     try {
-      final result = await InternetAddress.lookup('google.com');
+      logInfo('check connection');
+      var result = await InternetAddress.lookup('google.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
         logInfo('has internet connection');
         return true;
@@ -37,7 +38,7 @@ class HttpUtil {
         return false;
       }
     } catch (ex) {
-      print(ex.toString());
+      logError(ex.toString());
       return false;
     }
   }
@@ -67,9 +68,12 @@ class HttpUtil {
           else
             message = 'Connection to server failed due to internet';
           break;
+        default:
+          message = ex.toString();
+          break;
       }
     } else
-      message = 'Unexpected error occured';
+      message = Strings.UNEXPECTED_ERROR;
     return message;
   }
 }

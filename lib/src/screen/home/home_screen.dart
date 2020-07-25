@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:provider/provider.dart';
-import 'package:twentyfour_hour/src/model/user.dart';
+import 'package:twentyfour_hour/src/bloc/home_bloc.dart';
+import 'package:twentyfour_hour/src/screen/home/home_screen_builder.dart';
 import 'package:twentyfour_hour/src/util/constant.dart';
 
-import '../../bloc/home_bloc.dart';
-import '../../util/tools.dart';
-import 'home_builder.dart';
+import 'home_screen_prop.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -14,14 +13,15 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  HomeBloc _bloc;
-  User _user;
+  final prop = HomeScreenProp();
 
   @override
   void didChangeDependencies() {
-    _bloc = Provider.of<HomeBloc>(context);
-    _bloc?.init();
-    _bloc?.fetchUserInfo();
+    prop.init(
+      Provider.of<HomeBloc>(context),
+      context,
+    );
+    prop.bloc.fetchUserInfo();
     super.didChangeDependencies();
   }
 
@@ -31,13 +31,13 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: Themes.purpleDark,
       resizeToAvoidBottomPadding: false,
       body: StreamBuilder(
-        stream: _bloc.stream,
-        initialData: _user,
+        initialData: prop.user,
+        stream: prop.bloc.userStream,
         builder: (_, snap) {
-          _user = getDataFromAsyncSnapshot(snap);
+          prop.user = snap.hasData ? snap.data : null;
           return SafeArea(
             child: LoadingOverlay(
-              isLoading: _user == null,
+              isLoading: prop.user == null,
               progressIndicator: CircularProgressIndicator(
                 backgroundColor: Themes.purple,
                 valueColor: AlwaysStoppedAnimation<Color>(
@@ -48,7 +48,31 @@ class _HomeScreenState extends State<HomeScreen> {
               child: SingleChildScrollView(
                 physics: const NeverScrollableScrollPhysics(),
                 child: Container(
-                  child: _buildHome(),
+                  alignment: Alignment.center,
+                  child: Container(
+                    color: Themes.purpleDark,
+                    alignment: Alignment.center,
+                    child: prop.user != null
+                        ? Column(
+                            children: <Widget>[
+                              HomeScreenBuilder.buildActionBar(),
+                              HomeScreenBuilder.buildProfile(
+                                  context, prop.user),
+                              Container(
+                                color: Colors.red,
+                                child: Image.asset(
+                                  "assets/images/footer-banner.png",
+                                  //fit: BoxFit.fill,
+                                ),
+                              )
+                            ],
+                          )
+                        : Column(
+                            children: <Widget>[
+                              HomeScreenBuilder.buildActionBar(),
+                            ],
+                          ),
+                  ),
                 ),
               ),
             ),
@@ -56,35 +80,5 @@ class _HomeScreenState extends State<HomeScreen> {
         },
       ),
     );
-  }
-
-  Widget _buildHome() {
-    return _user != null
-        ? Container(
-            color: Themes.purpleDark,
-            alignment: Alignment.center,
-            child: Column(
-              children: <Widget>[
-                HomeBuilder.buildActionBar(),
-                HomeBuilder.buildProfile(context, _user),
-                Container(
-                  color: Colors.red,
-                  child: Image.asset(
-                    "assets/images/footer-banner.png",
-                    //fit: BoxFit.fill,
-                  ),
-                )
-              ],
-            ),
-          )
-        : Container(
-            color: Themes.purpleDark,
-            alignment: Alignment.center,
-            child: Column(
-              children: <Widget>[
-                HomeBuilder.buildActionBar(),
-              ],
-            ),
-          );
   }
 }

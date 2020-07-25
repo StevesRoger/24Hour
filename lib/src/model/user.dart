@@ -2,6 +2,7 @@ import 'base_entity.dart';
 
 class User extends BaseEntity {
   String username = 'N/A';
+  String password = '';
   String token = '';
   dynamic total = 0.0;
   dynamic deposit = 0.0;
@@ -12,19 +13,26 @@ class User extends BaseEntity {
 
   User();
 
-  User.login(this.username, this.token);
+  User.fromUsernameToken(this.username, this.token);
 
-  void walletFromMap(Map data) {
+  void infoFromMap(Map data) {
     total = data['balance'] ?? 0.0;
     deposit = data['deposit'] ?? 0.0;
     cash = data['cash_balance'] ?? 0.0;
     registerPoint = data['register_point'] ?? 0.0;
-    var package = data['active_package'];
-    this.package = package == null ? 'N/A' : package['name'] ?? 'N/A';
-    availableEarning = package == null ? 0.0 : package['available'] ?? 0.0;
+    var activePackage = data['active_package'];
+    if (activePackage != null) {
+      package = activePackage['name'] ?? 'N/A';
+      availableEarning = activePackage['available'] ?? 0.0;
+    }
   }
 
   bool isValid() {
     return token != null && token.isNotEmpty;
+  }
+
+  @override
+  String toString() {
+    return 'User{username: $username, token: $token}';
   }
 }
