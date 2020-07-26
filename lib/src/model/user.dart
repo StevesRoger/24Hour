@@ -10,12 +10,13 @@ class User extends BaseEntity {
   dynamic registerPoint = 0.0;
   dynamic availableEarning = 0.0;
   String package = 'N/A';
+  Map personal = Map();
 
   User();
 
   User.fromUsernameToken(this.username, this.token);
 
-  void infoFromMap(Map data) {
+  void walletFromMap(Map data) {
     total = data['balance'] ?? 0.0;
     deposit = data['deposit'] ?? 0.0;
     cash = data['cash_balance'] ?? 0.0;

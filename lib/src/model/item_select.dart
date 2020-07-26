@@ -3,7 +3,5 @@ class ItemSelect {
   dynamic value;
   Map json;
 
-  ItemSelect(this.label, {this.value}) {
-    if (value == null) value = label;
-  }
+  ItemSelect(this.label, {this.value = ''});
 }

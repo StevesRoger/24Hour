@@ -1,8 +1,10 @@
+import 'item_select.dart';
+
 class UserRegister {
   String lastName;
   String firstName;
   String sex;
-  String country;
+  ItemSelect country;
   String email;
   String phone;
   String password;
@@ -22,9 +24,9 @@ class UserRegister {
       'first_name': firstName,
       'last_name': lastName,
       'sex': sex,
-      'phone': phone,
+      'phone': country.value + " " + phone.substring(0, 1),
       'email': email,
-      'country_code': country,
+      'country_code': country.value + " " + country.label,
       'password': password,
       'confirm_password': confirmPassword,
       'ref_id': refferalId

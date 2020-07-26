@@ -47,8 +47,13 @@ class SignUpBloc extends BaseBloc<SignUpScreenProp> {
         var data = response.getData();
         var token = data['access_token'];
         if (token == null) throw Exception(Strings.REGISTER_FAILED);
-        await sharedPre.save(
-            'user', {'username': prop.userRegister.userName(), 'token': token});
+        prop.userRegister.toMap().remove('password');
+        prop.userRegister.toMap().remove('confirm_password');
+        await sharedPre.save('user', {
+          'username': prop.userRegister.userName(),
+          'token': token,
+          'info': prop.userRegister.toMap()
+        });
         await prop.progress.hide().then(
           (value) {
             if (response.isSucceed()) {

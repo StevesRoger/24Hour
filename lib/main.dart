@@ -9,6 +9,7 @@ import 'package:twentyfour_hour/src/screen/start/start_screen.dart';
 
 import 'src/bloc/base_bloc.dart';
 import 'src/bloc/home_bloc.dart';
+import 'src/bloc/kyc_bloc.dart';
 import 'src/bloc/launch_bloc.dart';
 import 'src/bloc/login_bloc.dart';
 import 'src/bloc/signup_bloc.dart';
@@ -63,7 +64,7 @@ class TwentyFourApp extends StatelessWidget {
             ),
         Routes.KYC: (context) => _buildScreen(
               KycScreen(),
-              HomeBloc(context),
+              KycBloc(context),
             ),
       },
     );

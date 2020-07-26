@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Rectangle extends StatelessWidget {
+class RoundRectangle extends StatelessWidget {
   final double width;
   final Color color;
   final double height;
@@ -16,7 +16,7 @@ class Rectangle extends StatelessWidget {
   final double marginRight;
   final double marginBottom;
 
-  Rectangle({
+  RoundRectangle({
     this.width = 100.0,
     this.height = 10.0,
     this.radius = 0.0,

@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
-import 'package:provider/provider.dart';
-import 'package:twentyfour_hour/src/bloc/signup_bloc.dart';
 import 'package:twentyfour_hour/src/component/logo_image.dart';
 import 'package:twentyfour_hour/src/component/scaffold_safe_area.dart';
 import 'package:twentyfour_hour/src/component/text_title.dart';
@@ -24,10 +22,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   void didChangeDependencies() {
-    prop.init(
-      Provider.of<SignUpBloc>(context),
-      context,
-    );
+    prop.init(context);
     prop.progress.style(message: Strings.PROCESSING);
     super.didChangeDependencies();
   }
@@ -78,10 +73,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   prefixIcon: Icon(FontAwesome.globe),
                   hint: Strings.COUNTRY,
                   items: K.countries,
-                  validator: (val) => val == null || val.value.isEmpty
-                      ? Strings.EMPTY_Country
-                      : null,
-                  onSaved: (val) => prop.userRegister.country = val.value,
+                  validator: (val) =>
+                      val == null || val.label.isEmpty || val.value == null
+                          ? Strings.EMPTY_COUNTRY
+                          : null,
+                  onSaved: (val) => prop.userRegister.country = val,
                 ),
                 RoundTextFormField(
                   prefixIcon: Icon(

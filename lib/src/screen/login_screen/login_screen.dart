@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:twentyfour_hour/src/bloc/login_bloc.dart';
 import 'package:twentyfour_hour/src/component/logo_image.dart';
 import 'package:twentyfour_hour/src/component/scaffold_safe_area.dart';
 import 'package:twentyfour_hour/src/component/text_title.dart';
@@ -21,10 +19,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void didChangeDependencies() {
-    prop.init(
-      Provider.of<LoginBloc>(context),
-      context,
-    );
+    prop.init(context);
     prop.progress.style(message: Strings.PROCESSING);
     super.didChangeDependencies();
   }

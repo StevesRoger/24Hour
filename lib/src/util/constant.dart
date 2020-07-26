@@ -8,10 +8,10 @@ import 'hex_color.dart';
 class K {
   static final sex = [ItemSelect('Male'), ItemSelect('Female')];
   static final countries = [
-    ItemSelect('Cambodia'),
-    ItemSelect('Thailand'),
-    ItemSelect('Vietnam'),
-    ItemSelect('Lao'),
+    ItemSelect('Cambodia', value: '+855'),
+    ItemSelect('Thailand', value: '+66'),
+    ItemSelect('Vietnam', value: '+84'),
+    ItemSelect('Lao', value: '+856'),
   ];
 }
 
@@ -22,6 +22,12 @@ class Strings {
   static const PROCESSING = 'Processing...';
   static const VERIFY_KYC = 'Verify KYC';
   static const PERSONAL_INFO = 'Personal Info';
+  static const WITHDRAWAL_ACCOUNT = 'Withdrawal Account';
+  static const SECURITY = 'Secuirty';
+  static const BANK_TRANSFER = 'Bank Transfer';
+  static const CHANGE_PASSWORD = 'Change Password';
+  static const SET_PIN = 'Set PIN****';
+  static const USDT = 'USDT';
   static const COUNTRY = 'Country';
   static const MEMBER_LOGIN = 'MEMBER LOGIN';
   static const REGISTER = 'Register';
@@ -53,7 +59,7 @@ class Strings {
   static const EMPTY_LAST_NAME = 'Last name can not be empty';
   static const EMPTY_FIRST_NAME = 'First name can not be empty';
   static const EMPTY_SEX = 'Sex can not be empty';
-  static const EMPTY_Country = 'Country can not be empty';
+  static const EMPTY_COUNTRY = 'Country can not be empty';
   static const EMPTY_PASSWORD = 'Password can not be empty';
   static const EMPTY_REFFERAL_ID = 'Refferal id can not be empty';
   static const EMPTY_CONFIRM_PASSWORD = 'Confirm password can not be empty';

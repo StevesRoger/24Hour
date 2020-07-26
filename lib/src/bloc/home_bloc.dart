@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:twentyfour_hour/src/model/user.dart';
@@ -19,8 +18,9 @@ class HomeBloc extends BaseBloc {
     try {
       var map = await sharedPre.read('user') ?? Map();
       user = User.fromUsernameToken(map['username'], map['token']);
+      user.personal = map['info'] ?? Map();
       var response = await userService.getUserWallet(user.token);
-      if (response.isSucceed()) user.infoFromMap(response.getData());
+      if (response.isSucceed()) user.walletFromMap(response.getData());
       userStream.add(user);
     } catch (ex) {
       logError(ex.toString());

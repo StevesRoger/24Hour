@@ -1,8 +1,6 @@
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:twentyfour_hour/src/bloc/launch_bloc.dart';
 import 'package:twentyfour_hour/src/component/widget/circle.dart';
 import 'package:twentyfour_hour/src/util/constant.dart';
 
@@ -18,10 +16,7 @@ class _LaunchScreenState extends State<LaunchScreen> {
 
   @override
   void didChangeDependencies() {
-    prop.init(
-      Provider.of<LaunchBloc>(context),
-      context,
-    );
+    prop.init(context);
     prop.bloc.isLogin();
     super.didChangeDependencies();
   }
@@ -75,7 +70,7 @@ class _LaunchScreenState extends State<LaunchScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Image.asset(
-              "assets/images/launch-image.png",
+              'assets/images/launch-image.png',
               width: 200.0,
               height: 240.0,
             ),
@@ -111,7 +106,7 @@ class _LaunchScreenState extends State<LaunchScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Image.asset(
-                  "assets/images/intro-image.png",
+                  'assets/images/intro-image.png',
                   width: 256.0,
                   height: 203.0,
                 ),
@@ -164,7 +159,7 @@ class _LaunchScreenState extends State<LaunchScreen> {
         Align(
           alignment: Alignment.bottomCenter,
           child: Image.asset(
-            "assets/images/footer-image.png",
+            'assets/images/footer-image.png',
           ),
         ),
       ],
