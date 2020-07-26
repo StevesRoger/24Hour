@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:twentyfour_hour/src/component/earning_progress.dart';
 import 'package:twentyfour_hour/src/component/gradient_panel.dart';
 import 'package:twentyfour_hour/src/component/round_rectangle.dart';
 import 'package:twentyfour_hour/src/component/widget/icon_menu.dart';
+import 'package:twentyfour_hour/src/component/widget/label.dart';
 import 'package:twentyfour_hour/src/component/widget/vertical_divider.dart';
 import 'package:twentyfour_hour/src/model/user.dart';
 import 'package:twentyfour_hour/src/util/constant.dart';
+import 'package:twentyfour_hour/src/util/tools.dart';
 
 class HomeScreenBuilder {
   static Widget buildActionBar({
@@ -16,16 +19,19 @@ class HomeScreenBuilder {
       children: <Widget>[
         IconButton(
           icon: Icon(
-            Icons.menu,
+            FontAwesome.menu,
             color: Colors.white,
-            size: 30.0,
           ),
           onPressed: onPressedMenu,
         ),
         Expanded(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Image.asset("assets/images/header-logo.png"),
+            child: Image.asset(
+              'assets/images/header-logo.png',
+              height: 35.0,
+              fit: BoxFit.scaleDown,
+            ),
           ),
         ),
         Expanded(
@@ -44,10 +50,7 @@ class HomeScreenBuilder {
     );
   }
 
-  static Widget buildProfile(
-    User user, {
-    GestureTapCallback onTap,
-  }) {
+  static Widget buildBody(BuildContext context, User user) {
     return Stack(
       children: <Widget>[
         GradientPanel(),
@@ -58,7 +61,7 @@ class HomeScreenBuilder {
               child: InkWell(
                 splashColor: Colors.white,
                 customBorder: const CircleBorder(),
-                onTap: onTap,
+                onTap: () => Navigator.pushNamed(context, Routes.KYC),
                 child: Container(
                   padding: const EdgeInsets.all(2.0),
                   child: Image.asset(
@@ -69,15 +72,8 @@ class HomeScreenBuilder {
                 ),
               ),
             ),
-            Container(
-              margin: const EdgeInsets.only(top: 2.0, bottom: 2.0),
-              child: Text(
-                user.username,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
+            Label(
+              user.username,
             ),
             RichText(
               text: TextSpan(
@@ -98,7 +94,7 @@ class HomeScreenBuilder {
               ),
             ),
             Container(
-              margin: const EdgeInsets.only(top: 2.0),
+              padding: const EdgeInsets.only(top: 2.0),
               child: RichText(
                 text: TextSpan(
                   style: TextStyle(
@@ -122,7 +118,7 @@ class HomeScreenBuilder {
             Stack(
               children: <Widget>[
                 _buildMenu(user),
-                _buildWalletTotal(user),
+                _buildWalletTotal(context, user),
               ],
             )
           ],
@@ -131,13 +127,13 @@ class HomeScreenBuilder {
     );
   }
 
-  static Widget _buildWalletTotal(User user) {
+  static Widget _buildWalletTotal(BuildContext context, User user) {
     return Center(
-      child: RoundRectangle(
-        width: 300.0,
-        color: Colors.white,
+      child: Rectangle(
+        width: percentWidth(context, 70.0),
         height: 40.0,
         radius: 30.0,
+        color: Colors.white,
         child: RichText(
           textAlign: TextAlign.center,
           text: TextSpan(

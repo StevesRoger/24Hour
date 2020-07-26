@@ -20,6 +20,8 @@ class Strings {
   static const SEX = 'Sex';
   static const WAITING = 'Waiting...';
   static const PROCESSING = 'Processing...';
+  static const VERIFY_KYC = 'Verify KYC';
+  static const PERSONAL_INFO = 'Personal Info';
   static const COUNTRY = 'Country';
   static const MEMBER_LOGIN = 'MEMBER LOGIN';
   static const REGISTER = 'Register';

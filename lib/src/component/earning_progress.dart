@@ -10,8 +10,8 @@ class EarningProgress extends StatelessWidget {
       padding: const EdgeInsets.all(5.0),
       child: Stack(
         children: <Widget>[
-          RoundRectangle(width: 250.0, color: Themes.purple),
-          RoundRectangle(width: 125.0, color: Themes.blueColor),
+          Rectangle(width: 250.0, radius: 10.0, color: Themes.purple),
+          Rectangle(width: 125.0, radius: 10.0, color: Themes.blueColor),
         ],
       ),
     );

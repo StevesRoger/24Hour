@@ -39,6 +39,14 @@ DeviceScreenType getDeviceType(MediaQueryData mediaQuery) {
   return DeviceScreenType.Mobile;
 }
 
+double percentWidth(BuildContext context, double percent) {
+  return (MediaQuery.of(context).size.width / 100) * percent;
+}
+
+double percentHeight(BuildContext context, double percent) {
+  return (MediaQuery.of(context).size.height / 100) * percent;
+}
+
 Map<String, String> buildRequestHeader({
   String contentType = HttpHeader.CONTENT_TYPE_JSON,
   String accept = HttpHeader.ACCEPT_JSON,

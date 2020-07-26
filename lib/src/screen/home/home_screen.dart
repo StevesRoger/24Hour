@@ -43,35 +43,23 @@ class _HomeScreenState extends State<HomeScreen> {
             color: Colors.black12,
             child: SingleChildScrollView(
               physics: const NeverScrollableScrollPhysics(),
-              child: Container(
-                alignment: Alignment.center,
-                child: Container(
-                  color: Themes.purpleDark,
-                  alignment: Alignment.center,
-                  child: prop.user != null
-                      ? Column(
-                          children: <Widget>[
-                            HomeScreenBuilder.buildActionBar(),
-                            HomeScreenBuilder.buildProfile(prop.user,
-                                onTap: () =>
-                                    Navigator.pushNamed(context, Routes.KYC)),
-                            Container(
-                              alignment: Alignment.center,
-                              color: Colors.red,
-                              child: Image.asset(
-                                "assets/images/footer-banner.png",
-                                //fit: BoxFit.fill,
-                              ),
-                            )
-                          ],
+              child: prop.user != null
+                  ? Column(
+                      children: <Widget>[
+                        HomeScreenBuilder.buildActionBar(),
+                        HomeScreenBuilder.buildBody(context, prop.user),
+                        Image.asset(
+                          'assets/images/footer-banner.png',
+                          fit: BoxFit.fitHeight,
+                          //fit: BoxFit.fill,
                         )
-                      : Column(
-                          children: <Widget>[
-                            HomeScreenBuilder.buildActionBar(),
-                          ],
-                        ),
-                ),
-              ),
+                      ],
+                    )
+                  : Column(
+                      children: <Widget>[
+                        HomeScreenBuilder.buildActionBar(),
+                      ],
+                    ),
             ),
           );
         },

@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 
-class Rectangle extends StatelessWidget {
-  final double width;
+class Label extends StatelessWidget {
+  final String text;
   final Color color;
-  final double height;
-  final Widget child;
-  final double radius;
-  final BoxBorder border;
   final double paddingTop;
   final double paddingLeft;
   final double paddingRight;
@@ -15,14 +11,11 @@ class Rectangle extends StatelessWidget {
   final double marginLeft;
   final double marginRight;
   final double marginBottom;
+  final FontWeight fontWeight;
+  final double fontSize;
 
-  Rectangle({
-    this.width = 100.0,
-    this.height = 10.0,
-    this.radius = 0.0,
-    this.border,
-    this.color,
-    this.child,
+  Label(
+    this.text, {
     this.paddingRight = 0.0,
     this.paddingLeft = 0.0,
     this.paddingBottom = 0.0,
@@ -31,12 +24,14 @@ class Rectangle extends StatelessWidget {
     this.marginLeft = 0.0,
     this.marginRight = 0.0,
     this.marginTop = 0.0,
+    this.color = Colors.white,
+    this.fontWeight = FontWeight.w700,
+    this.fontSize,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      alignment: Alignment.center,
       margin: EdgeInsets.only(
         top: marginTop,
         bottom: marginBottom,
@@ -49,17 +44,15 @@ class Rectangle extends StatelessWidget {
         right: paddingRight,
         bottom: paddingBottom,
       ),
-      width: width,
-      height: height,
-      decoration: new BoxDecoration(
-        border: border,
-        color: color,
-        shape: BoxShape.rectangle,
-        borderRadius: BorderRadius.all(
-          Radius.circular(radius),
+      child: Text(
+        text,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          color: color,
+          fontWeight: fontWeight,
+          fontSize: fontSize,
         ),
       ),
-      child: child,
     );
   }
 }
