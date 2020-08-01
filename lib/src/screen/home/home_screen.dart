@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
-import 'package:loading_overlay/loading_overlay.dart';
-import 'package:twentyfour_hour/src/component/earning_progress.dart';
+import 'package:provider/provider.dart';
+import 'package:twentyfour_hour/src/bloc/home_bloc.dart';
+import 'package:twentyfour_hour/src/component/widget/earning_progress.dart';
 import 'package:twentyfour_hour/src/component/gradient_panel.dart';
-import 'package:twentyfour_hour/src/component/round_rectangle.dart';
+import 'package:twentyfour_hour/src/component/loading_panel.dart';
+import 'package:twentyfour_hour/src/component/widget/round_rectangle.dart';
 import 'package:twentyfour_hour/src/component/scaffold_safe_area.dart';
-import 'package:twentyfour_hour/src/component/widget/circular_progress.dart';
 import 'package:twentyfour_hour/src/component/widget/icon_menu.dart';
 import 'package:twentyfour_hour/src/component/widget/label.dart';
 import 'package:twentyfour_hour/src/component/widget/vertical_divider.dart';
+import 'package:twentyfour_hour/src/model/user.dart';
 import 'package:twentyfour_hour/src/util/constant.dart';
 import 'package:twentyfour_hour/src/util/tools.dart';
 
@@ -24,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void didChangeDependencies() {
-    prop.init(context);
+    prop.init(Provider.of<HomeBloc>(context), context);
     prop.bloc.fetchUserInfo();
     super.didChangeDependencies();
   }
@@ -34,16 +36,13 @@ class _HomeScreenState extends State<HomeScreen> {
     return ScaffoldSafeArea(
       backgroundColor: Themes.purpleDark,
       resizeToAvoidBottomPadding: false,
-      body: StreamBuilder(
-        initialData: prop.user,
+      body: StreamBuilder<User>(
         stream: prop.bloc.userStream,
         builder: (_, snap) {
           prop.user = snap.data ?? null;
-          return LoadingOverlay(
+          return LoadingPanel(
             isLoading: snap.connectionState == ConnectionState.waiting &&
                 prop.user == null,
-            progressIndicator: CircularProgress(),
-            color: Colors.black12,
             child: SingleChildScrollView(
               physics: const NeverScrollableScrollPhysics(),
               child: prop.user != null
@@ -96,6 +95,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 icon: Icon(
                   Icons.notifications_active,
                   color: Colors.white,
+                  size: 26.0,
                 ),
                 onPressed: () {},
               ),
@@ -117,7 +117,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   onTap: () => Navigator.pushNamed(
                     context,
                     Routes.KYC,
-                   // arguments: prop.user,
+                    arguments: prop.user,
                   ),
                   child: Container(
                     padding: const EdgeInsets.all(2.0),
@@ -187,7 +187,9 @@ class _HomeScreenState extends State<HomeScreen> {
         child: RoundRectangle(
           width: percentWidth(context, 70.0),
           height: 40.0,
-          radius: 30.0,
+          borderRadius: const BorderRadius.all(
+            Radius.circular(30.0),
+          ),
           color: Colors.white,
           child: RichText(
             textAlign: TextAlign.center,
@@ -221,7 +223,7 @@ class _HomeScreenState extends State<HomeScreen> {
       margin: EdgeInsets.only(
         top: 22.0,
       ),
-      color: Colors.white,
+      color: Themes.bg_gray,
       child: Column(
         children: <Widget>[
           Container(

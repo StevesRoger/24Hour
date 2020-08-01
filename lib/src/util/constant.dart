@@ -16,7 +16,12 @@ class K {
 }
 
 class Strings {
+
   static const APP_NAME = 'AS24Hour';
+  static const NA = 'N/A';
+  static const CHOOSE_YOUR_ID_TYPE = 'Choose your ID type';
+  static const VERIFY_YOUR_KYC = 'Verify Your KYC';
+  static const DEFAULT_ID = 'Default ID';
   static const SEX = 'Sex';
   static const WAITING = 'Waiting...';
   static const PROCESSING = 'Processing...';
@@ -32,6 +37,8 @@ class Strings {
   static const MEMBER_LOGIN = 'MEMBER LOGIN';
   static const REGISTER = 'Register';
   static const OK = 'OK';
+  static const PROOF_OF_IDENTITY = 'Proof of identity';
+  static const SELFIES = 'Selfies';
   static const CLOSE = 'Close';
   static const LOGIN = 'Login';
   static const SUBMIT = 'Submit';
@@ -95,14 +102,17 @@ class Routes {
   static const LOGIN = '/login';
   static const SIGN_UP = '/signUp';
   static const KYC = '/kyc';
+  static const KYC_VERIFY = '/kyc-verify';
 }
 
 class Themes {
   static final purpleDark = HexColor('#20144e');
+  static final purpleDarkStatusBar = HexColor('#160e38');
   static final purple = HexColor('#802779');
   static final blueColor = HexColor('#1bacd7');
   static final pinkColor = HexColor('#802779');
   static final gray = HexColor('#f1f1f6');
+  static final bg_gray = HexColor('f3f4f5');
 
   //static final statusBarColor = HexColor('#1b1045');
   static final primarySwatchColor = MaterialColor(0xFF802779, _color);

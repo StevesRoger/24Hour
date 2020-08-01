@@ -7,9 +7,8 @@ class KycBloc extends BaseBloc<KycScreenProp> {
 
   KycBloc(BuildContext context) : super(context);
 
-
   @override
   void dispose() {
-    // TODO: implement dispose
+    prop?.dispose();
   }
 }

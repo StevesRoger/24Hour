@@ -57,5 +57,7 @@ class LoginBloc extends BaseBloc<LoginScreenProp> {
   }
 
   @override
-  void dispose() {}
+  void dispose() {
+    prop?.dispose();
+  }
 }

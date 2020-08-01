@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:twentyfour_hour/src/component/logo_image.dart';
+import 'package:provider/provider.dart';
+import 'package:twentyfour_hour/src/bloc/login_bloc.dart';
+import 'package:twentyfour_hour/src/component/widget/logo_image.dart';
 import 'package:twentyfour_hour/src/component/scaffold_safe_area.dart';
-import 'package:twentyfour_hour/src/component/text_title.dart';
+import 'package:twentyfour_hour/src/component/widget/text_title.dart';
 import 'package:twentyfour_hour/src/component/widget/clickable_text.dart';
 import 'package:twentyfour_hour/src/component/widget/round_button.dart';
 import 'package:twentyfour_hour/src/component/widget/round_text_form_field.dart';
@@ -19,7 +21,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void didChangeDependencies() {
-    prop.init(context);
+    prop.init(Provider.of<LoginBloc>(context), context);
     prop.progress.style(message: Strings.PROCESSING);
     super.didChangeDependencies();
   }
@@ -27,6 +29,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return ScaffoldSafeArea(
+      color: Themes.bg_gray,
       body: ListView(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),

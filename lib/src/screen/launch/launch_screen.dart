@@ -1,6 +1,8 @@
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:twentyfour_hour/src/bloc/launch_bloc.dart';
 import 'package:twentyfour_hour/src/component/widget/circle.dart';
 import 'package:twentyfour_hour/src/util/constant.dart';
 
@@ -16,7 +18,7 @@ class _LaunchScreenState extends State<LaunchScreen> {
 
   @override
   void didChangeDependencies() {
-    prop.init(context);
+    prop.init(Provider.of<LaunchBloc>(context), context);
     prop.bloc.isLogin();
     super.didChangeDependencies();
   }
@@ -81,10 +83,13 @@ class _LaunchScreenState extends State<LaunchScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Circle(
+                    paddingAll: 5.0,
                     color: Themes.purple,
                   ),
                   Circle(
                     color: Colors.white,
+                    width: 13.0,
+                    height: 13.0,
                   ),
                 ],
               ),
@@ -139,7 +144,9 @@ class _LaunchScreenState extends State<LaunchScreen> {
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
-                            Circle(),
+                            Circle(
+                              paddingAll: 5.0,
+                            ),
                             Circle(
                               color: Themes.purple,
                             ),

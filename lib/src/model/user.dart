@@ -1,7 +1,9 @@
+import 'package:twentyfour_hour/src/util/constant.dart';
+
 import 'base_entity.dart';
 
 class User extends BaseEntity {
-  String username = 'N/A';
+  String username = Strings.NA;
   String password = '';
   String token = '';
   dynamic total = 0.0;
@@ -9,7 +11,7 @@ class User extends BaseEntity {
   dynamic cash = 0.0;
   dynamic registerPoint = 0.0;
   dynamic availableEarning = 0.0;
-  String package = 'N/A';
+  String package = Strings.NA;
   Map personal = Map();
 
   User();
@@ -23,7 +25,7 @@ class User extends BaseEntity {
     registerPoint = data['register_point'] ?? 0.0;
     var activePackage = data['active_package'];
     if (activePackage != null) {
-      package = activePackage['name'] ?? 'N/A';
+      package = activePackage['name'] ?? Strings.NA;
       availableEarning = activePackage['available'] ?? 0.0;
     }
   }

@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:twentyfour_hour/src/model/user.dart';
+import 'package:twentyfour_hour/src/screen/home/home_screen_prop.dart';
 
 import '../service/user_profile_service.dart';
 import '../util/shared_pref.dart';
 import '../util/tools.dart';
 import 'base_bloc.dart';
 
-class HomeBloc extends BaseBloc {
+class HomeBloc extends BaseBloc<HomeScreenProp> {
   final userService = UserProfileService();
   final userStream = BehaviorSubject<User>();
 
@@ -31,5 +32,6 @@ class HomeBloc extends BaseBloc {
   @override
   void dispose() {
     userStream?.close();
+    prop?.dispose();
   }
 }

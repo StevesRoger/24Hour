@@ -1,12 +1,12 @@
-
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:twentyfour_hour/src/screen/launch/launch_screen_prop.dart';
 import 'package:twentyfour_hour/src/util/shared_pref.dart';
 import 'package:twentyfour_hour/src/util/tools.dart';
 
 import 'base_bloc.dart';
 
-class LaunchBloc extends BaseBloc {
+class LaunchBloc extends BaseBloc<LaunchScreenProp> {
   final userStream = BehaviorSubject<bool>();
 
   LaunchBloc(BuildContext context) : super(context);
@@ -26,5 +26,6 @@ class LaunchBloc extends BaseBloc {
   @override
   void dispose() {
     userStream?.close();
+    prop?.dispose();
   }
 }

@@ -4,4 +4,9 @@ import 'package:twentyfour_hour/src/model/user.dart';
 
 class HomeScreenProp extends BaseProp<HomeBloc> {
   User user;
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+  }
 }

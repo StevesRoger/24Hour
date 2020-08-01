@@ -6,6 +6,7 @@ class RoundTextFormField extends StatelessWidget {
   final String hint;
   final bool obscureText;
   final TextAlign textAlign;
+  final bool autofocus;
   final FormFieldValidator<String> validator;
   final Alignment alignment;
   final EdgeInsetsGeometry margin;
@@ -27,6 +28,7 @@ class RoundTextFormField extends StatelessWidget {
     this.suffixIcon,
     this.onChanged,
     this.onSaved,
+    this.autofocus = false,
     this.margin = const EdgeInsets.only(
       top: 10.0,
       left: 40.0,
@@ -48,6 +50,7 @@ class RoundTextFormField extends StatelessWidget {
         controller: controller,
         keyboardType: inputType,
         validator: validator,
+        autofocus: autofocus,
         decoration: InputDecoration(
           filled: true,
           fillColor: Colors.white,

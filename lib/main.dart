@@ -14,6 +14,7 @@ import 'src/bloc/launch_bloc.dart';
 import 'src/bloc/login_bloc.dart';
 import 'src/bloc/signup_bloc.dart';
 import 'src/screen/kyc/kyc_screen.dart';
+import 'src/screen/kyc/kyc_verify_screen.dart';
 import 'src/util/constant.dart';
 
 void main() {
@@ -34,7 +35,7 @@ class TwentyFourApp extends StatelessWidget {
           Brightness.light // Dark == white status bar -- for IOS.
       ),
     );*/
-    FlutterStatusbarcolor.setStatusBarColor(Themes.purpleDark);
+    FlutterStatusbarcolor.setStatusBarColor(Themes.purpleDarkStatusBar);
     FlutterStatusbarcolor.setStatusBarWhiteForeground(true);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -66,6 +67,7 @@ class TwentyFourApp extends StatelessWidget {
               KycScreen(),
               KycBloc(context),
             ),
+        Routes.KYC_VERIFY: (context) => KycVerifyScreen(),
       },
     );
   }

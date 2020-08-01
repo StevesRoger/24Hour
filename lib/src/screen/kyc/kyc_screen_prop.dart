@@ -6,4 +6,9 @@ import 'package:twentyfour_hour/src/model/user.dart';
 class KycScreenProp extends BaseProp<KycBloc> {
   User user;
   final personalInfo = List<ItemSelect>();
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+  }
 }

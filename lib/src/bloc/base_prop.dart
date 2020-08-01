@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:progress_dialog/progress_dialog.dart';
-import 'package:provider/provider.dart';
 import 'package:twentyfour_hour/src/bloc/base_bloc.dart';
 
 abstract class BaseProp<T extends BaseBloc> {
@@ -8,9 +7,9 @@ abstract class BaseProp<T extends BaseBloc> {
   T _bloc;
   BuildContext _context;
 
-  void init(BuildContext context) {
+  void init(T bloc, BuildContext context) {
     _progress = ProgressDialog(context, isDismissible: false);
-    _bloc = Provider.of<T>(context);
+    _bloc = bloc;
     _bloc?.prop = this;
     _context = context;
   }
@@ -20,4 +19,6 @@ abstract class BaseProp<T extends BaseBloc> {
   ProgressDialog get progress => _progress;
 
   BuildContext get context => _context;
+
+  void dispose();
 }

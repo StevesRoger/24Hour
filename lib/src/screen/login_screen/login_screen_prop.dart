@@ -6,4 +6,9 @@ import 'package:twentyfour_hour/src/model/user.dart';
 class LoginScreenProp extends BaseProp<LoginBloc> {
   final user = User();
   final formKey = GlobalKey<FormState>();
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+  }
 }

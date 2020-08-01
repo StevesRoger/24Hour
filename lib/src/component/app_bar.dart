@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:twentyfour_hour/src/util/tools.dart';
 
 class AsAppBar extends StatelessWidget {
   @override
@@ -7,8 +8,9 @@ class AsAppBar extends StatelessWidget {
       children: <Widget>[
         IconButton(
           icon: Icon(
-            Icons.arrow_back_ios,
+            isAndroid() ? Icons.arrow_back : Icons.arrow_back_ios,
             color: Colors.white,
+            size: 26.0,
           ),
           onPressed: () {
             Navigator.pop(context);

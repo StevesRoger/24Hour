@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:twentyfour_hour/src/model/item_select.dart';
 import 'package:twentyfour_hour/src/screen/signup/signup_screen_prop.dart';
 import 'package:twentyfour_hour/src/service/authentication_service.dart';
@@ -12,6 +13,7 @@ import 'base_bloc.dart';
 class SignUpBloc extends BaseBloc<SignUpScreenProp> {
   final selectionService = SelectionService();
   final authService = AuthenticationService();
+  final refferalStream = BehaviorSubject<bool>();
 
   SignUpBloc(BuildContext context) : super(context);
 
@@ -47,12 +49,18 @@ class SignUpBloc extends BaseBloc<SignUpScreenProp> {
         var data = response.getData();
         var token = data['access_token'];
         if (token == null) throw Exception(Strings.REGISTER_FAILED);
-        prop.userRegister.toMap().remove('password');
-        prop.userRegister.toMap().remove('confirm_password');
+        var userRegisterMap = prop.userRegister.toMap();
+        var firstName = prop.userRegister.firstName;
+        var lastName = prop.userRegister.lastName;
+        userRegisterMap['name'] = firstName != null && lastName != null
+            ? firstName + ' ' + lastName
+            : Strings.NA;
+        userRegisterMap.remove('password');
+        userRegisterMap.remove('confirm_password');
         await sharedPre.save('user', {
           'username': prop.userRegister.userName(),
           'token': token,
-          'info': prop.userRegister.toMap()
+          'info': userRegisterMap,
         });
         await prop.progress.hide().then(
           (value) {
@@ -85,8 +93,24 @@ class SignUpBloc extends BaseBloc<SignUpScreenProp> {
     }
   }
 
+  void onPressedDefaultId() async {
+    try {
+      FocusScopeNode currentFocus = FocusScope.of(context);
+      if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
+        currentFocus.focusedChild.unfocus();
+      }
+      refferalStream.add(true);
+      Future.delayed(const Duration(milliseconds: 3000), () {
+        prop.refferalId.text = '676767ws';
+        refferalStream.add(false);
+      });
+    } catch (ex) {
+      refferalStream.add(false);
+    }
+  }
+
   @override
   void dispose() {
-    //streamCountry?.close();
+    refferalStream?.close();
   }
 }

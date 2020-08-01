@@ -25,7 +25,7 @@ class Label extends StatelessWidget {
     this.marginRight = 0.0,
     this.marginTop = 0.0,
     this.color = Colors.white,
-    this.fontWeight = FontWeight.w700,
+    this.fontWeight = FontWeight.bold,
     this.fontSize,
   });
 
