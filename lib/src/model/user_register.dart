@@ -26,7 +26,7 @@ class UserRegister {
       'sex': sex,
       'phone': country.value + " " + phone.substring(0, 1),
       'email': email,
-      'country_code': country.value + " " + country.label,
+      'country_code': country.label,
       'password': password,
       'confirm_password': confirmPassword,
       'ref_id': refferalId

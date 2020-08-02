@@ -6,7 +6,7 @@ import 'package:twentyfour_hour/src/bloc/launch_bloc.dart';
 import 'package:twentyfour_hour/src/component/widget/circle.dart';
 import 'package:twentyfour_hour/src/util/constant.dart';
 
-import 'launch_screen_prop.dart';
+import 'launch_prop.dart';
 
 class LaunchScreen extends StatefulWidget {
   @override

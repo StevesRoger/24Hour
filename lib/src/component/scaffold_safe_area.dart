@@ -6,7 +6,6 @@ class ScaffoldSafeArea extends StatelessWidget {
   final EdgeInsetsGeometry margin;
   final EdgeInsetsGeometry padding;
   final PreferredSizeWidget appBar;
-  final Color color;
   final Color backgroundColor;
   final bool resizeToAvoidBottomPadding;
 
@@ -16,8 +15,7 @@ class ScaffoldSafeArea extends StatelessWidget {
     this.margin,
     this.padding,
     this.appBar,
-    this.color,
-    this.resizeToAvoidBottomPadding,
+    this.resizeToAvoidBottomPadding = true,
     this.backgroundColor,
   });
 
@@ -29,10 +27,10 @@ class ScaffoldSafeArea extends StatelessWidget {
       appBar: appBar,
       body: SafeArea(
         child: Container(
-          color: color,
           padding: padding,
           margin: margin,
           alignment: alignment,
+          color: backgroundColor,
           child: body,
         ),
       ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:twentyfour_hour/src/model/user.dart';
-import 'package:twentyfour_hour/src/screen/home/home_screen_prop.dart';
+import 'package:twentyfour_hour/src/screen/home/home_prop.dart';
 
 import '../service/user_profile_service.dart';
 import '../util/shared_pref.dart';

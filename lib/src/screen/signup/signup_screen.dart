@@ -15,7 +15,7 @@ import 'package:twentyfour_hour/src/component/widget/round_select_form_field.dar
 import 'package:twentyfour_hour/src/component/widget/round_text_form_field.dart';
 import 'package:twentyfour_hour/src/util/constant.dart';
 
-import 'signup_screen_prop.dart';
+import 'signup_prop.dart';
 
 class SignUpScreen extends StatefulWidget {
   @override
@@ -35,7 +35,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return ScaffoldSafeArea(
-      color: Themes.bg_gray,
+      backgroundColor: Themes.bg_gray,
       body: StreamBuilder<bool>(
         initialData: false,
         stream: prop.bloc.refferalStream,

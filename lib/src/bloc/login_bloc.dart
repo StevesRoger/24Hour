@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:twentyfour_hour/src/screen/login_screen/login_screen_prop.dart';
+import 'package:twentyfour_hour/src/screen/login_screen/login_prop.dart';
 import 'package:twentyfour_hour/src/service/authentication_service.dart';
 import 'package:twentyfour_hour/src/util/constant.dart';
 import 'package:twentyfour_hour/src/util/shared_pref.dart';

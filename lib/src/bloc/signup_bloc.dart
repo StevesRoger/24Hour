@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:twentyfour_hour/src/model/item_select.dart';
-import 'package:twentyfour_hour/src/screen/signup/signup_screen_prop.dart';
+import 'package:twentyfour_hour/src/screen/signup/signup_prop.dart';
 import 'package:twentyfour_hour/src/service/authentication_service.dart';
 import 'package:twentyfour_hour/src/service/selection_service.dart';
 import 'package:twentyfour_hour/src/util/constant.dart';

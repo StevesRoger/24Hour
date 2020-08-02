@@ -38,6 +38,7 @@ dependencies:
   loading_overlay: ^0.2.1
   flutter_statusbarcolor: ^0.2.3
   fluttericon: ^1.0.7
+  dotted_border: ^1.0.6
 
 dev_dependencies:
   flutter_test:
@@ -71,10 +72,10 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  fonts:
-    - family: AsIcons
-      fonts:
-         - asset: assets/fonts/AsIcons.ttf
+  #fonts:
+  #  - family: AsIcons
+  #    fonts:
+  #       - asset: assets/fonts/AsIcons.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

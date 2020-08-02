@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:twentyfour_hour/src/util/constant.dart';
 
 class LogoImage extends StatelessWidget {
   final EdgeInsetsGeometry margin;
@@ -18,7 +19,7 @@ class LogoImage extends StatelessWidget {
       alignment: Alignment.center,
       margin: margin,
       child: Image.asset(
-        "assets/images/register-login-logo.png",
+        K.IMAGE_PATH + 'register-login-logo.png',
       ),
     );
   }

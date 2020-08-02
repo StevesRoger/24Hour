@@ -8,7 +8,7 @@ class StartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScaffoldSafeArea(
-      color: Themes.bg_gray,
+      backgroundColor: Themes.bg_gray,
       body: ListView(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),

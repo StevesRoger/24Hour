@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:twentyfour_hour/src/util/constant.dart';
 
 class RoundRectangle extends StatelessWidget {
   final double width;
@@ -17,6 +18,8 @@ class RoundRectangle extends StatelessWidget {
   final double marginBottom;
   final double paddingAll;
   final double marginAll;
+  final Color splashColor;
+  final GestureTapCallback onTap;
 
   RoundRectangle({
     this.width = 100.0,
@@ -35,6 +38,8 @@ class RoundRectangle extends StatelessWidget {
     this.marginTop = 0.0,
     this.paddingAll,
     this.marginAll,
+    this.splashColor,
+    this.onTap,
   });
 
   @override
@@ -65,7 +70,14 @@ class RoundRectangle extends StatelessWidget {
         shape: BoxShape.rectangle,
         borderRadius: borderRadius,
       ),
-      child: child,
+      child: Material(
+        child: InkWell(
+          child: child,
+          splashColor: splashColor ?? Themes.purpleDark,
+          onTap: onTap,
+        ),
+        color: Colors.transparent,
+      ),
     );
   }
 }

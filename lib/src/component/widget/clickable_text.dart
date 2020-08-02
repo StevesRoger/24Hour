@@ -35,31 +35,34 @@ class ClickableTextUnderline extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      splashColor: Themes.purple,
-      onTap: onPressed,
-      child: Container(
-        alignment: Alignment.center,
-        margin: EdgeInsets.only(
-          top: marginTop,
-          bottom: marginBottom,
-          left: marginLeft,
-          right: marginRight,
-        ),
-        padding: EdgeInsets.only(
-          top: paddingTop,
-          left: paddingLeft,
-          right: paddingRight,
-          bottom: paddingBottom,
-        ),
-        height: 30.0,
-        child: Text(
-          data,
-          textAlign: textAlign,
-          style: TextStyle(
-            fontWeight: FontWeight.w500,
-            fontSize: fontSize,
-            color: color ?? Themes.purpleDark,
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        splashColor: Themes.purple,
+        onTap: onPressed,
+        child: Container(
+          alignment: Alignment.center,
+          margin: EdgeInsets.only(
+            top: marginTop,
+            bottom: marginBottom,
+            left: marginLeft,
+            right: marginRight,
+          ),
+          padding: EdgeInsets.only(
+            top: paddingTop,
+            left: paddingLeft,
+            right: paddingRight,
+            bottom: paddingBottom,
+          ),
+          height: 30.0,
+          child: Text(
+            data,
+            textAlign: textAlign,
+            style: TextStyle(
+              fontWeight: FontWeight.w500,
+              fontSize: fontSize,
+              color: color ?? Themes.purpleDark,
+            ),
           ),
         ),
       ),

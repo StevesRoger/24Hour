@@ -7,14 +7,23 @@ import 'package:twentyfour_hour/src/screen/login_screen/login_screen.dart';
 import 'package:twentyfour_hour/src/screen/signup/signup_screen.dart';
 import 'package:twentyfour_hour/src/screen/start/start_screen.dart';
 
+import 'src/bloc/bank_transfer_bloc.dart';
 import 'src/bloc/base_bloc.dart';
+import 'src/bloc/change_password_bloc.dart';
 import 'src/bloc/home_bloc.dart';
-import 'src/bloc/kyc_bloc.dart';
+import 'src/bloc/profile_bloc.dart';
 import 'src/bloc/launch_bloc.dart';
 import 'src/bloc/login_bloc.dart';
 import 'src/bloc/signup_bloc.dart';
-import 'src/screen/kyc/kyc_screen.dart';
-import 'src/screen/kyc/kyc_verify_screen.dart';
+import 'src/bloc/usdt_bloc.dart';
+import 'src/screen/bank_transfer/bank_transfer_screen.dart';
+import 'src/screen/change_password/change_password_screen.dart';
+import 'src/screen/change_password/change_pin_screen.dart';
+import 'src/screen/change_password/set_pin_screen.dart';
+import 'src/screen/profile/identity_verify_screen.dart';
+import 'src/screen/profile/profile_screen.dart';
+import 'src/screen/profile/selfies_verify_screen.dart';
+import 'src/screen/usdt/usdt_screen.dart';
 import 'src/util/constant.dart';
 
 void main() {
@@ -46,11 +55,13 @@ class TwentyFourApp extends StatelessWidget {
       ),
       initialRoute: Routes.LAUNCH,
       routes: <String, WidgetBuilder>{
+        Routes.IDENTITY_VERIFY: (context) => KycVerifyScreen(),
+        Routes.SELFIES_VERIFY: (context) => SelfiesVerifyScreen(),
+        Routes.START: (context) => StartScreen(),
         Routes.LAUNCH: (context) => _buildScreen(
               LaunchScreen(),
               LaunchBloc(context),
             ),
-        Routes.START: (context) => StartScreen(),
         Routes.LOGIN: (context) => _buildScreen(
               LoginScreen(),
               LoginBloc(context),
@@ -64,10 +75,29 @@ class TwentyFourApp extends StatelessWidget {
               HomeBloc(context),
             ),
         Routes.KYC: (context) => _buildScreen(
-              KycScreen(),
+              ProfileScreen(),
               KycBloc(context),
             ),
-        Routes.KYC_VERIFY: (context) => KycVerifyScreen(),
+        Routes.CHANGE_PASSWORD: (context) => _buildScreen(
+              ChangePasswordScreen(),
+              ChangePasswordBloc(context),
+            ),
+        Routes.CHANGE_PIN: (context) => _buildScreen(
+              ChangePinScreen(),
+              ChangePasswordBloc(context),
+            ),
+        Routes.SET_PIN: (context) => _buildScreen(
+              SetPinScreen(),
+              ChangePasswordBloc(context),
+            ),
+        Routes.BANK_TRANSFER: (context) => _buildScreen(
+              BankTransferScreen(),
+              BankTransferBloc(context),
+            ),
+        Routes.USDT: (context) => _buildScreen(
+              USDTScreen(),
+              USDTBloc(context),
+            ),
       },
     );
   }

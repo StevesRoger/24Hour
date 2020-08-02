@@ -14,6 +14,8 @@ class RoundTextFormField extends StatelessWidget {
   final Widget suffixIcon;
   final ValueChanged<String> onChanged;
   final FormFieldSetter<String> onSaved;
+  final TextStyle hintStyle;
+  final EdgeInsetsGeometry contentPadding;
 
   const RoundTextFormField({
     Key key,
@@ -21,7 +23,7 @@ class RoundTextFormField extends StatelessWidget {
     this.controller,
     this.inputType = TextInputType.text,
     this.obscureText,
-    this.textAlign,
+    this.textAlign = TextAlign.center,
     this.validator,
     this.alignment,
     this.prefixIcon,
@@ -29,6 +31,32 @@ class RoundTextFormField extends StatelessWidget {
     this.onChanged,
     this.onSaved,
     this.autofocus = false,
+    this.hintStyle,
+    this.contentPadding,
+    this.margin = const EdgeInsets.only(
+      top: 10.0,
+      left: 40.0,
+      right: 40.0,
+      bottom: 10.0,
+    ),
+  }) : super(key: key);
+
+  const RoundTextFormField.textLeft({
+    Key key,
+    this.hint,
+    this.controller,
+    this.inputType = TextInputType.text,
+    this.obscureText,
+    this.textAlign = TextAlign.left,
+    this.validator,
+    this.alignment,
+    this.prefixIcon,
+    this.suffixIcon,
+    this.onChanged,
+    this.onSaved,
+    this.autofocus = false,
+    this.hintStyle,
+    this.contentPadding = const EdgeInsets.only(left: 20.0),
     this.margin = const EdgeInsets.only(
       top: 10.0,
       left: 40.0,
@@ -46,7 +74,7 @@ class RoundTextFormField extends StatelessWidget {
         onSaved: onSaved,
         onChanged: onChanged,
         obscureText: obscureText ?? false,
-        textAlign: textAlign ?? TextAlign.center,
+        textAlign: textAlign,
         controller: controller,
         keyboardType: inputType,
         validator: validator,
@@ -57,10 +85,10 @@ class RoundTextFormField extends StatelessWidget {
           prefixIcon: prefixIcon,
           suffixIcon: suffixIcon,
           hintText: hint,
-          hintStyle: TextStyle(),
+          hintStyle: hintStyle,
           // contentPadding:  EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
           contentPadding: prefixIcon == null
-              ? const EdgeInsets.all(0.0)
+              ? contentPadding ?? const EdgeInsets.all(0.0)
               : const EdgeInsets.only(
                   right: 50.0,
                 ),

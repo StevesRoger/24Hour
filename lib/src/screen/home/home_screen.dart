@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:twentyfour_hour/src/bloc/home_bloc.dart';
-import 'package:twentyfour_hour/src/component/widget/earning_progress.dart';
 import 'package:twentyfour_hour/src/component/gradient_panel.dart';
 import 'package:twentyfour_hour/src/component/loading_panel.dart';
-import 'package:twentyfour_hour/src/component/widget/round_rectangle.dart';
 import 'package:twentyfour_hour/src/component/scaffold_safe_area.dart';
+import 'package:twentyfour_hour/src/component/widget/earning_progress.dart';
 import 'package:twentyfour_hour/src/component/widget/icon_menu.dart';
 import 'package:twentyfour_hour/src/component/widget/label.dart';
+import 'package:twentyfour_hour/src/component/widget/round_rectangle.dart';
 import 'package:twentyfour_hour/src/component/widget/vertical_divider.dart';
 import 'package:twentyfour_hour/src/model/user.dart';
 import 'package:twentyfour_hour/src/util/constant.dart';
 import 'package:twentyfour_hour/src/util/tools.dart';
 
-import 'home_screen_prop.dart';
+import 'home_prop.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -120,7 +120,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     arguments: prop.user,
                   ),
                   child: Container(
-                    padding: const EdgeInsets.all(2.0),
+                    margin: const EdgeInsets.only(top: 10.0, bottom: 2.0),
                     child: Image.asset(
                       'assets/images/profile-logo.png',
                       height: 70,

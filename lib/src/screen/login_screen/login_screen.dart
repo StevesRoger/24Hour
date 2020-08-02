@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:twentyfour_hour/src/bloc/login_bloc.dart';
-import 'package:twentyfour_hour/src/component/widget/logo_image.dart';
 import 'package:twentyfour_hour/src/component/scaffold_safe_area.dart';
-import 'package:twentyfour_hour/src/component/widget/text_title.dart';
 import 'package:twentyfour_hour/src/component/widget/clickable_text.dart';
+import 'package:twentyfour_hour/src/component/widget/logo_image.dart';
 import 'package:twentyfour_hour/src/component/widget/round_button.dart';
 import 'package:twentyfour_hour/src/component/widget/round_text_form_field.dart';
+import 'package:twentyfour_hour/src/component/widget/text_title.dart';
 import 'package:twentyfour_hour/src/util/constant.dart';
 
-import 'login_screen_prop.dart';
+import 'login_prop.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -29,7 +29,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return ScaffoldSafeArea(
-      color: Themes.bg_gray,
+      backgroundColor: Themes.bg_gray,
       body: ListView(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
@@ -70,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ClickableTextUnderline(
             marginTop: 10.0,
             data: Strings.CREATE_ACCOUNT,
-            onPressed: () {},
+            onPressed: () => Navigator.pushNamed(context, Routes.SIGN_UP),
           ),
           ClickableTextUnderline(
             data: Strings.FORGOT_PASSWORD,

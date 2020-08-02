@@ -16,6 +16,9 @@ class GradientPanel extends StatelessWidget {
   final double marginRight;
   final double marginBottom;
   final Gradient gradient;
+  final AlignmentGeometry alignment;
+  final double begin;
+  final double end;
 
   GradientPanel({
     this.child,
@@ -30,13 +33,16 @@ class GradientPanel extends StatelessWidget {
     this.marginLeft = 0.0,
     this.marginRight = 0.0,
     this.marginTop = 0.0,
+    this.begin = 0.0,
+    this.end = 0.6,
     this.gradient,
+    this.alignment = Alignment.center,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      alignment: Alignment.center,
+      alignment: alignment,
       margin: EdgeInsets.only(
         top: marginTop,
         bottom: marginBottom,
@@ -59,7 +65,7 @@ class GradientPanel extends StatelessWidget {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [Themes.purple, Themes.purpleDark],
-              stops: [0.0, 0.6],
+              stops: [begin, end],
             ),
       ),
     );

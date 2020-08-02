@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:twentyfour_hour/src/util/constant.dart';
 
 class Label extends StatelessWidget {
   final String text;
@@ -13,6 +14,7 @@ class Label extends StatelessWidget {
   final double marginBottom;
   final FontWeight fontWeight;
   final double fontSize;
+  final TextAlign textAlign;
 
   Label(
     this.text, {
@@ -27,6 +29,7 @@ class Label extends StatelessWidget {
     this.color = Colors.white,
     this.fontWeight = FontWeight.bold,
     this.fontSize,
+    this.textAlign = TextAlign.center,
   });
 
   @override
@@ -45,8 +48,8 @@ class Label extends StatelessWidget {
         bottom: paddingBottom,
       ),
       child: Text(
-        text,
-        textAlign: TextAlign.center,
+        text??Strings.NA,
+        textAlign: textAlign,
         style: TextStyle(
           color: color,
           fontWeight: fontWeight,

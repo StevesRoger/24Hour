@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:provider/provider.dart';
-import 'package:twentyfour_hour/src/bloc/kyc_bloc.dart';
+import 'package:twentyfour_hour/src/bloc/profile_bloc.dart';
 import 'package:twentyfour_hour/src/component/app_bar.dart';
 import 'package:twentyfour_hour/src/component/gradient_panel.dart';
 import 'package:twentyfour_hour/src/component/scaffold_safe_area.dart';
@@ -11,15 +11,15 @@ import 'package:twentyfour_hour/src/component/widget/round_rectangle.dart';
 import 'package:twentyfour_hour/src/util/constant.dart';
 import 'package:twentyfour_hour/src/util/tools.dart';
 
-import 'kyc_screen_prop.dart';
+import 'profile_prop.dart';
 
-class KycScreen extends StatefulWidget {
+class ProfileScreen extends StatefulWidget {
   @override
-  _KycScreenState createState() => _KycScreenState();
+  _ProfileScreenState createState() => _ProfileScreenState();
 }
 
-class _KycScreenState extends State<KycScreen> {
-  final prop = KycScreenProp();
+class _ProfileScreenState extends State<ProfileScreen> {
+  final prop = ProfileScreenProp();
 
   @override
   void didChangeDependencies() {
@@ -43,11 +43,10 @@ class _KycScreenState extends State<KycScreen> {
                 GradientPanel(),
                 Container(
                   alignment: Alignment.center,
+                  color: Themes.bg_gray,
                   margin: EdgeInsets.only(
                     top: percentHeight(context, 11.0),
                   ),
-                  color: Themes.bg_gray,
-                  height: MediaQuery.of(context).size.height,
                   child: Column(
                     children: <Widget>[
                       Label(
@@ -168,6 +167,7 @@ class _KycScreenState extends State<KycScreen> {
             border: const Border(
               bottom: BorderSide(color: Colors.black12),
             ),
+            onTap: () => Navigator.pushNamed(context, Routes.BANK_TRANSFER),
           ),
           _buildRectangle(
             Strings.USDT,
@@ -179,6 +179,7 @@ class _KycScreenState extends State<KycScreen> {
             paddingLeft: percentWidth(context, 9.0),
             textColor: Themes.purple,
             width: 100.0,
+            onTap: () => Navigator.pushNamed(context, Routes.USDT),
           ),
           Label(
             Strings.SECURITY,
@@ -200,9 +201,10 @@ class _KycScreenState extends State<KycScreen> {
             border: const Border(
               bottom: BorderSide(color: Colors.black12),
             ),
+            onTap: () => Navigator.pushNamed(context, Routes.CHANGE_PASSWORD),
           ),
           _buildRectangle(
-            Strings.SET_PIN,
+            prop.user.hasPin ? Strings.CHANGE_PIN : Strings.SET_PIN,
             widget: Image.asset(
               'assets/images/icons/pin-color.png',
               height: 21.0,
@@ -211,40 +213,52 @@ class _KycScreenState extends State<KycScreen> {
             paddingLeft: percentWidth(context, 9.0),
             textColor: Themes.purple,
             width: 100.0,
+            onTap: () => Navigator.pushNamed(
+                context, prop.user.hasPin ? Routes.CHANGE_PIN : Routes.SET_PIN),
           ),
         ],
       );
 
-  Widget _buildButtonVerifyKyc() => GestureDetector(
-        onTap: () =>
-            Navigator.pushNamed(context, Routes.KYC_VERIFY, arguments: prop),
-        child: RoundRectangle(
-          marginTop: 2.0,
-          borderRadius: const BorderRadius.all(
-            Radius.circular(20.0),
+  Widget _buildButtonVerifyKyc() {
+    bool kyc = prop.user.kycStatus;
+    var button = RoundRectangle(
+      marginTop: 2.0,
+      border: kyc ? Border.all(color: Themes.purpleDark) : null,
+      borderRadius: const BorderRadius.all(
+        Radius.circular(20.0),
+      ),
+      child: Row(
+        children: <Widget>[
+          Label(
+            kyc ? Strings.UNDER_REVIEW : Strings.VERIFY_KYC,
+            fontSize: 12.0,
+            fontWeight: kyc ? FontWeight.w600 : FontWeight.w700,
+            marginLeft: 12.0,
+            color: kyc ? Themes.purpleDark : Colors.white,
           ),
-          child: Row(
-            children: <Widget>[
-              Label(
-                Strings.VERIFY_KYC,
-                fontSize: 12.0,
-                fontWeight: FontWeight.w700,
-                marginLeft: 12.0,
-              ),
-              Expanded(
-                child: Icon(
-                  Icons.arrow_forward,
-                  size: 15.0,
-                  color: Colors.white,
-                ),
-              )
-            ],
-          ),
-          width: 100.0,
-          height: 20.0,
-          color: Themes.purpleDark,
-        ),
-      );
+          kyc
+              ? Container()
+              : Expanded(
+                  child: Icon(
+                    Icons.arrow_forward,
+                    size: 15.0,
+                    color: Colors.white,
+                  ),
+                )
+        ],
+      ),
+      width: 100.0,
+      height: 20.0,
+      color: kyc ? Themes.bg_gray : Themes.purpleDark,
+    );
+    return kyc
+        ? button
+        : GestureDetector(
+            onTap: () => Navigator.pushNamed(context, Routes.IDENTITY_VERIFY,
+                arguments: prop),
+            child: button,
+          );
+  }
 
   Widget _buildRectangle(
     String label, {
@@ -257,10 +271,12 @@ class _KycScreenState extends State<KycScreen> {
     Color textColor = Colors.grey,
     Border border,
     BorderRadiusGeometry borderRadius,
+    GestureTapCallback onTap,
   }) {
     return RoundRectangle(
       paddingLeft: paddingLeft,
       color: Colors.white,
+      onTap: onTap,
       child: Row(
         children: <Widget>[
           icon != null
